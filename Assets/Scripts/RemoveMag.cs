@@ -5,52 +5,56 @@ public class RemoveMag : MonoBehaviour
 {
     [SerializeField] private GameObject mag;
     [SerializeField] private Transform magSpawnPoint;
-
     [SerializeField] private GameObject magInGun;
+    [SerializeField] InputActionReference RightHand;
+    [SerializeField] InputActionReference LeftHand;
+    [SerializeField] private HandDetection handDetection;
 
-    [SerializeField] InputActionReference[] Actions;
+    private bool canIRemoveMag;
 
-    private bool canIRemoveMag = true;
+    private void Start()
+    {
+        canIRemoveMag = true;
+    }
 
     void OnEnable()
     {
-        foreach (var action in Actions)
-        {
-            action.action.Enable();
-            action.action.performed += ExampleFunction;
-        }
+        RightHand.action.Enable();
+        RightHand.action.performed += RightHandFunction;
+
+        LeftHand.action.Enable();
+        LeftHand.action.performed += LeftHandFunction;
     }
 
     void OnDisable()
     {
-        foreach (var action in Actions)
+        RightHand.action.Disable();
+        RightHand.action.performed -= RightHandFunction;
+
+        LeftHand.action.Disable();
+        LeftHand.action.performed -= LeftHandFunction;
+    }
+
+    void RightHandFunction(InputAction.CallbackContext obj)
+    {
+        if (canIRemoveMag && handDetection != null && handDetection.IsRightHand())
         {
-            action.action.Disable();
-            action.action.performed -= ExampleFunction;
+            SpawnMag();
         }
     }
 
-    void ExampleFunction(InputAction.CallbackContext obj)
+    void LeftHandFunction(InputAction.CallbackContext obj)
     {
-        SpawnMag();
-    }
-
-    void Update()
-    {
-        if (canIRemoveMag)
+        if (canIRemoveMag && handDetection != null && handDetection.IsLeftHand())
         {
-            if (Actions[0].action.triggered || Actions[1].action.triggered)
-            {
-                SpawnMag();
-                canIRemoveMag = false;
-            }
+            SpawnMag();
         }
     }
 
     public void SpawnMag()
     {
         magInGun.SetActive(false);
-
         Instantiate(mag, magSpawnPoint.position, magSpawnPoint.rotation);
+        canIRemoveMag = false;
     }
 }
