@@ -21,17 +21,13 @@ public class GunShot : MonoBehaviour
             animator.Play("GunShot", -1, 0f);
             gunshotSound.Play();
             haveBulletInChamber = false;
-
-            // Inform GunMag that the gun has been fired
-            if (gunMag != null)
-            {
-                gunMag.MarkGunAsFired();
-            }
         }
         else
         {
             noBulletSound.Play();
         }
+
+        gunMag.MarkGunAsFired();
     }
 
     public void SetHaveBulletInChamber(bool value)

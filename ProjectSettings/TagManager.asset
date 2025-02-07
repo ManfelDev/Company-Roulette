@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Magazine
+  - UsedMagazine
   - Left Hand
   - Right Hand
   layers:

@@ -13,14 +13,14 @@ public class GunMag : MonoBehaviour
     [SerializeField] private GunShot gunShot;
 
     private bool canIRemoveMag;
-    private bool hasFiredWithCurrentMag; // Track if the gun has been fired at least once
+    private bool hasFiredWithCurrentMag;
 
     private void Start()
     {
-        canIRemoveMag = true;
-        xRSocketTagInteractor.socketActive = false;
-        gunShot.SetHaveBulletInChamber(true);
-        hasFiredWithCurrentMag = false; // Reset fire status for the first mag
+        canIRemoveMag = false;
+        xRSocketTagInteractor.socketActive = true;
+        gunShot.SetHaveBulletInChamber(false);
+        hasFiredWithCurrentMag = true;
     }
 
     void OnEnable()
@@ -83,15 +83,30 @@ public class GunMag : MonoBehaviour
 
             if (interactable != null)
             {
+                // Get the GunMagazine component from the inserted magazine
+                Magazine magazine = interactable.transform.GetComponent<Magazine>();
+
+                if (magazine != null)
+                {
+                    // Set the bullet chamber based on the magazine's state
+                    gunShot.SetHaveBulletInChamber(magazine.HasBullet);
+
+                    // If the magazine was empty, update its tag
+                    if (!magazine.HasBullet)
+                    {
+                        interactable.transform.gameObject.tag = "UsedMagazine";
+                    }
+                }
+
+                // Remove the magazine from the socket
                 Destroy(interactable.transform.gameObject);
             }
         }
 
         magInGun.SetActive(true);
         canIRemoveMag = true;
-        xRSocketTagInteractor.socketActive = false;
-        gunShot.SetHaveBulletInChamber(true);
-        hasFiredWithCurrentMag = false; // Reset because this is a fresh magazine
+        xRSocketTagInteractor.socketActive = false; // Prevent inserting more magazines while one is already loaded
+        hasFiredWithCurrentMag = false; // Reset firing status for this magazine
     }
 
     // Called from GunShot when the gun is fired
