@@ -12,6 +12,7 @@ public class GunMag : MonoBehaviour
     [SerializeField] private XRSocketTagInteractor xRSocketTagInteractor;
     [SerializeField] private GunShot gunShot;
 
+    private Animator animator;
     private bool canIRemoveMag;
     private bool hasFiredWithCurrentMag;
 
@@ -21,6 +22,7 @@ public class GunMag : MonoBehaviour
         xRSocketTagInteractor.socketActive = true;
         gunShot.SetHaveBulletInChamber(false);
         hasFiredWithCurrentMag = true;
+        animator = GetComponent<Animator>();
     }
 
     void OnEnable()
@@ -72,41 +74,41 @@ public class GunMag : MonoBehaviour
         xRSocketTagInteractor.socketActive = true;
         gunShot.SetHaveBulletInChamber(false);
         hasFiredWithCurrentMag = false; // Reset for the next magazine
+        gunShot.DeactivateBangFlag();
     }
 
     public void ReloadMag()
     {
-        // Check if any interactable is currently selected in the socket
         if (xRSocketTagInteractor.interactablesSelected.Count > 0)
         {
             var interactable = xRSocketTagInteractor.interactablesSelected[0];
 
             if (interactable != null)
             {
-                // Get the GunMagazine component from the inserted magazine
                 Magazine magazine = interactable.transform.GetComponent<Magazine>();
 
                 if (magazine != null)
                 {
-                    // Set the bullet chamber based on the magazine's state
                     gunShot.SetHaveBulletInChamber(magazine.HasBullet);
 
-                    // If the magazine was empty, update its tag
                     if (!magazine.HasBullet)
                     {
                         interactable.transform.gameObject.tag = "UsedMagazine";
                     }
                 }
 
-                // Remove the magazine from the socket
                 Destroy(interactable.transform.gameObject);
             }
         }
 
+        animator.Play("GunReload", -1, 0f);
         magInGun.SetActive(true);
         canIRemoveMag = true;
-        xRSocketTagInteractor.socketActive = false; // Prevent inserting more magazines while one is already loaded
-        hasFiredWithCurrentMag = false; // Reset firing status for this magazine
+        xRSocketTagInteractor.socketActive = false;
+        hasFiredWithCurrentMag = false;
+
+        // Reset the GunShot animation when reloading
+        gunShot.ResetGunShotAnimation();
     }
 
     // Called from GunShot when the gun is fired

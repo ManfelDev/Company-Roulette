@@ -2221,7 +2221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b0d7e4b895fe33478afd5f0ac40d55c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FPS: 90
+  FPS: 120
 --- !u!4 &1345664834
 Transform:
   m_ObjectHideFlags: 0
@@ -3137,17 +3137,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pistol
       objectReference: {fileID: 0}
-    - target: {fileID: 4873394100738395992, guid: e612325eae1b85f4aac66c2f5e39a9fb, type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6152402740350835361, guid: e612325eae1b85f4aac66c2f5e39a9fb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.116
       objectReference: {fileID: 0}
     - target: {fileID: 6152402740350835361, guid: e612325eae1b85f4aac66c2f5e39a9fb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.068
+      value: -4.009
       objectReference: {fileID: 0}
     - target: {fileID: 6152402740350835361, guid: e612325eae1b85f4aac66c2f5e39a9fb, type: 3}
       propertyPath: m_LocalPosition.z
