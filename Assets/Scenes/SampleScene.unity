@@ -2461,6 +2461,7 @@ MonoBehaviour:
   haveBulletInChamber: 1
   gunshotSound: {fileID: 1026036399}
   noBulletSound: {fileID: 1026036401}
+  gunMag: {fileID: 1026036404}
 --- !u!82 &1026036401
 AudioSource:
   m_ObjectHideFlags: 0

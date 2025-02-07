@@ -1,11 +1,11 @@
 using UnityEngine;
-using Unity.XR;
 
 public class GunShot : MonoBehaviour
 {
     [SerializeField] private bool haveBulletInChamber;
     [SerializeField] private AudioSource gunshotSound;
     [SerializeField] private AudioSource noBulletSound;
+    [SerializeField] private GunMag gunMag; // Reference to GunMag to update firing status
 
     private Animator animator;
 
@@ -21,6 +21,12 @@ public class GunShot : MonoBehaviour
             animator.Play("GunShot", -1, 0f);
             gunshotSound.Play();
             haveBulletInChamber = false;
+
+            // Inform GunMag that the gun has been fired
+            if (gunMag != null)
+            {
+                gunMag.MarkGunAsFired();
+            }
         }
         else
         {
