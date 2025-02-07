@@ -3,14 +3,13 @@ using Unity.XR;
 
 public class GunShot : MonoBehaviour
 {
-    [SerializeField] private bool haveBulletInChamber = true;
-
+    [SerializeField] private bool haveBulletInChamber;
     [SerializeField] private AudioSource gunshotSound;
     [SerializeField] private AudioSource noBulletSound;
 
     private Animator animator;
 
-    private void Start() 
+    private void Start()
     {
         animator = GetComponent<Animator>();
     }
@@ -19,17 +18,23 @@ public class GunShot : MonoBehaviour
     {
         if (haveBulletInChamber)
         {
-            // PLay gun animation "GunShot"
-            animator.Play("GunShot",  -1, 0f);
-            
-            // Play gunshot sound
+            animator.Play("GunShot", -1, 0f);
             gunshotSound.Play();
+            haveBulletInChamber = false;
         }
-
         else
-        {       
-            // Play no bullet sound
+        {
             noBulletSound.Play();
         }
+    }
+
+    public void SetHaveBulletInChamber(bool value)
+    {
+        haveBulletInChamber = value;
+    }
+
+    public bool HasBulletInChamber()
+    {
+        return haveBulletInChamber;
     }
 }
