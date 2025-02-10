@@ -1,0 +1,50 @@
+using UnityEngine;
+
+public class StampDetection : MonoBehaviour
+{
+    [SerializeField] private LayerMask paperLayer;
+    [SerializeField] private float detectionDistance = 0.05f;
+    [SerializeField] private GameObject stampPrefab; // Prefab for the stamp mark
+
+    private bool hasStamped = false; // Prevents multiple detections
+
+    void FixedUpdate()
+    {
+        if (!hasStamped)
+        {
+            CheckForPaper();
+        }
+    }
+
+    void CheckForPaper()
+    {
+        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, detectionDistance, paperLayer))
+        {
+            Debug.Log("Stamp touched the paper at: " + hit.point);
+            PlaceStampMark(hit.point, hit.normal);
+            hasStamped = true;
+        }
+    }
+
+    void PlaceStampMark(Vector3 position, Vector3 normal)
+    {
+        if (stampPrefab != null)
+        {
+            // Instantiate the stamp mark at the hit position
+            GameObject stampMark = Instantiate(stampPrefab, position, Quaternion.identity);
+
+            // Adjust rotation to match the stamp's orientation
+            stampMark.transform.rotation = Quaternion.LookRotation(normal) * Quaternion.Euler(90, 0, 0);
+            
+            // Match the Y-axis rotation of the stamp
+            stampMark.transform.rotation = Quaternion.Euler(stampMark.transform.eulerAngles.x, transform.eulerAngles.y + 180, stampMark.transform.eulerAngles.z);
+
+            // Offset slightly to avoid Z-fighting
+            stampMark.transform.position += normal * 0.001f;
+        }
+        else
+        {
+            Debug.LogWarning("Stamp prefab not assigned!");
+        }
+    }
+}
