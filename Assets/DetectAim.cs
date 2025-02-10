@@ -7,7 +7,7 @@ public class DetectAim : MonoBehaviour
 
     [SerializeField] private Transform gunPoint;
     [SerializeField] private float maxDistance;
-    public GameObject PointingAt {  get; private set; }
+    public GameObject PointingAt { get; private set; }
 
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject boss;
@@ -15,18 +15,21 @@ public class DetectAim : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log(WhoGotShot());
+        }
     }
 
     private void FixedUpdate()
     {
-        
+        DetectObject();
     }
 
     private void DetectObject()
@@ -49,12 +52,12 @@ public class DetectAim : MonoBehaviour
     {
         DetectObject();
 
-        if(PointingAt == boss)
+        if (PointingAt == boss)
         {
             return 2;
         }
 
-        if(PointingAt == player)
+        if (PointingAt == player)
         {
             return 1;
         }
