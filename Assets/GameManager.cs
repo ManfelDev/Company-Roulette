@@ -13,10 +13,15 @@ public class GameManager : MonoBehaviour
 
     private List<GameObject> currentMagazines;
 
+
+    private void Awake()
+    {
+        currentMagazines = new List<GameObject>();
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        currentMagazines = new List<GameObject>();
+        
         InstantiateMagazines();
     }
 
