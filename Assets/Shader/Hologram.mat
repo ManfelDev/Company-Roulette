@@ -71,14 +71,14 @@ Material:
     - _ReceiveShadows: 1
     - _SrcBlend: 5
     - _Surface: 1
-    - _VertexIntesity: 0.004
+    - _VertexIntesity: 0.01
     - _WorkflowMode: 1
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
-    - _FresnelColor: {r: 1.1025289, g: 3.873727, b: 5.1761904, a: 1}
-    - _ScanLineSpeed: {r: 1, g: -1, b: 0, a: 0}
-    - _TilingScanLine: {r: 1, g: 30, b: 0, a: 0}
+    - _FresnelColor: {r: 1.197879, g: 19.326502, b: 27.857622, a: 1}
+    - _ScanLineSpeed: {r: -1, g: 0, b: 0, a: 0}
+    - _TilingScanLine: {r: 1, g: 5, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
