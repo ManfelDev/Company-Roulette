@@ -10,7 +10,9 @@ public class GunShot : MonoBehaviour
     [SerializeField] private GunMag gunMag;
     [SerializeField] private GameObject bangFlag;
 
-    [SerializeField] private UnityEvent doOnShoot;
+    [SerializeField] private UnityEvent doOnTriggerPress;
+    [SerializeField] private UnityEvent doOnBang;
+    [SerializeField] private UnityEvent doOnNoBullet;
 
     private Animator animator;
     private bool hasPlayedGunShotAnimation;
@@ -31,14 +33,16 @@ public class GunShot : MonoBehaviour
             haveBulletInChamber = false;
             ActivateBangFlag();
             SendHapticFeedback(1f, 0.05f, 1f);
+            doOnBang.Invoke();
         }
         else
         {
             noBulletSound.Play();
             SendHapticFeedback(0.3f, 0.05f, 0.3f);
+            doOnNoBullet.Invoke();
         }
 
-        doOnShoot.Invoke();
+        doOnTriggerPress.Invoke();
 
         // Play the animation only on the first shot
         if (!hasPlayedGunShotAnimation)

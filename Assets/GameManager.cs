@@ -13,6 +13,16 @@ public class GameManager : MonoBehaviour
 
     private List<GameObject> currentMagazines;
 
+    [field: Header("Shooting Logic")]
+    [SerializeField] private DetectAim detectAimScript;
+
+    [field: Header("Game Logic")]
+    [SerializeField] private int playerLives = 3;
+    private bool playerAlive = true;
+    [SerializeField] private int bossLives = 3;
+    private bool bossAlive = true;
+    private bool playerTurn = true;
+    [SerializeField] private int currentSalaryRaise = 1000;
 
     private void Awake()
     {
@@ -52,5 +62,65 @@ public class GameManager : MonoBehaviour
         }
 
         InstantiateMagazines();
+    }
+
+
+    public void ChangeTurn()
+    {
+        playerTurn = !playerTurn;
+    }
+
+
+    public void WhoGotShot()
+    {
+        switch(detectAimScript.WhoGotShot())
+        {
+            case 0:
+                Debug.Log("Shot missed both");
+                break;
+            case 1:
+                Debug.Log("Shot hit player");
+                DamagePlayer(1);
+                break;
+            case 2:
+                Debug.Log("Shot hit boss");
+                DamageBoss(1);
+                break;
+        }
+
+        if(playerAlive && bossAlive)
+            ChangeTurn();
+    }
+
+    private void DamagePlayer(int damage)
+    {
+        playerLives -= damage;
+
+        if(playerLives <= 0)
+        {
+            Debug.Log("Player lost");
+            playerAlive = false;
+        }
+    }
+
+    private void HealPlayer(int amount)
+    {
+        playerLives += amount;
+    }
+
+    private void DamageBoss(int damage)
+    {
+        bossLives -= damage;
+
+        if (bossLives <= 0)
+        {
+            Debug.Log("Boss lost");
+            bossAlive = false;
+        }
+    }
+
+    private void HealBoss(int amount)
+    {
+        bossLives += amount;
     }
 }

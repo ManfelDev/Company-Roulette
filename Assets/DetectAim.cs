@@ -9,6 +9,9 @@ public class DetectAim : MonoBehaviour
     [SerializeField] private float maxDistance;
     public GameObject PointingAt {  get; private set; }
 
+    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject boss;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -23,7 +26,7 @@ public class DetectAim : MonoBehaviour
 
     private void FixedUpdate()
     {
-        DetectObject();
+        
     }
 
     private void DetectObject()
@@ -41,4 +44,22 @@ public class DetectAim : MonoBehaviour
 
         }
     }
+
+    public int WhoGotShot()
+    {
+        DetectObject();
+
+        if(PointingAt == boss)
+        {
+            return 2;
+        }
+
+        if(PointingAt == player)
+        {
+            return 1;
+        }
+
+        return 0;
+    }
+
 }
