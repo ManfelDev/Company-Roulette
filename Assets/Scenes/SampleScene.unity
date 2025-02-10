@@ -1519,8 +1519,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.46701437, y: 0.1241855, z: 0.23754835}
+  m_Center: {x: -0.0008704351, y: -0.17564772, z: -0.38122582}
 --- !u!33 &517610691
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2176,8 +2176,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.44025248, y: 0.11292419, z: 0.16463965}
+  m_Center: {x: 0.2798743, y: -0.17161646, z: 0.4176813}
 --- !u!1 &1345664831
 GameObject:
   m_ObjectHideFlags: 0
@@ -2355,8 +2355,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.45958248, y: 0.121830456, z: 0.13632071}
+  m_Center: {x: 0.27020863, y: -0.17493184, z: -0.4318399}
 --- !u!1 &1512790028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2912,8 +2912,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 0.4797574, z: 1}
+  m_Center: {x: 0, y: 0.26012105, z: 0}
 --- !u!33 &1839156496
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3133,6 +3133,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 299701735}
     m_Modifications:
+    - target: {fileID: 1059275628667330503, guid: e612325eae1b85f4aac66c2f5e39a9fb, type: 3}
+      propertyPath: controller
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4232963869908984893, guid: e612325eae1b85f4aac66c2f5e39a9fb, type: 3}
       propertyPath: m_Name
       value: Pistol

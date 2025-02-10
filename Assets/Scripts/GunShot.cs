@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics.HapticsUtility;
 
 public class GunShot : MonoBehaviour
 {
@@ -9,12 +10,14 @@ public class GunShot : MonoBehaviour
     [SerializeField] private GameObject bangFlag;
 
     private Animator animator;
-    private bool hasPlayedGunShotAnimation; // Track if animation has been played
+    private bool hasPlayedGunShotAnimation;
+    private HandDetection handDetection;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         hasPlayedGunShotAnimation = true; // Reset animation flag
+        handDetection = GetComponent<HandDetection>();
     }
 
     public void Shot()
@@ -24,10 +27,12 @@ public class GunShot : MonoBehaviour
             gunshotSound.Play();
             haveBulletInChamber = false;
             ActivateBangFlag();
+            SendHapticFeedback(1f, 0.05f, 1f);
         }
         else
         {
             noBulletSound.Play();
+            SendHapticFeedback(0.3f, 0.05f, 0.3f);
         }
 
         // Play the animation only on the first shot
@@ -40,6 +45,18 @@ public class GunShot : MonoBehaviour
         gunMag.MarkGunAsFired();
     }
 
+    private void SendHapticFeedback(float hapticAmplitude, float hapticDuration, float hapticFrequency)
+    {
+        if (handDetection.IsRightHand())
+        {
+            SendHapticImpulse(hapticAmplitude, hapticDuration, Controller.Right, hapticFrequency);
+        }
+        else if (handDetection.IsLeftHand())
+        {
+            SendHapticImpulse(hapticAmplitude, hapticDuration, Controller.Left, hapticFrequency);
+        }
+    }
+
     public void SetHaveBulletInChamber(bool value)
     {
         haveBulletInChamber = value;
@@ -50,7 +67,6 @@ public class GunShot : MonoBehaviour
         return haveBulletInChamber;
     }
 
-    // Reset animation flag when reloading
     public void ResetGunShotAnimation()
     {
         hasPlayedGunShotAnimation = false;

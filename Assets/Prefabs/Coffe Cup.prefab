@@ -490,4 +490,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db7a5887eca2f6c4b8e2f8bc5928231e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drinkDistance: 0.2
+  drinkDistance: 0.3
