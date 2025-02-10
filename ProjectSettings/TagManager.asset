@@ -8,6 +8,7 @@ TagManager:
   - UsedMagazine
   - Left Hand
   - Right Hand
+  - Pistol
   layers:
   - Default
   - TransparentFX
