@@ -613,6 +613,15 @@ MonoBehaviour:
   noBulletSound: {fileID: 2785997337243212572}
   gunMag: {fileID: 432034375527274337}
   bangFlag: {fileID: 6155874549907295236}
+  doOnTriggerPress:
+    m_PersistentCalls:
+      m_Calls: []
+  doOnBang:
+    m_PersistentCalls:
+      m_Calls: []
+  doOnNoBullet:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &432034375527274337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -841,7 +850,7 @@ GameObject:
   - component: {fileID: 6888497586356231253}
   - component: {fileID: 555310369215203405}
   - component: {fileID: 2902581823859765026}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Bang Flag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
