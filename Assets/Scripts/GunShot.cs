@@ -1,5 +1,6 @@
 using UnityEngine;
 using static UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics.HapticsUtility;
+using UnityEngine.Events;
 
 public class GunShot : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class GunShot : MonoBehaviour
     [SerializeField] private AudioSource noBulletSound;
     [SerializeField] private GunMag gunMag;
     [SerializeField] private GameObject bangFlag;
+
+    [SerializeField] private UnityEvent doOnShoot;
 
     private Animator animator;
     private bool hasPlayedGunShotAnimation;
@@ -34,6 +37,8 @@ public class GunShot : MonoBehaviour
             noBulletSound.Play();
             SendHapticFeedback(0.3f, 0.05f, 0.3f);
         }
+
+        doOnShoot.Invoke();
 
         // Play the animation only on the first shot
         if (!hasPlayedGunShotAnimation)
