@@ -1178,9 +1178,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1767192433, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 296617663}
-    - targetCorrespondingSourceObject: {fileID: 1767192433, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 296617667}
   m_SourcePrefab: {fileID: 100100000, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
 --- !u!4 &296617651 stripped
 Transform:
@@ -1246,27 +1243,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!135 &296617667
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 296617662}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Radius: 0.3
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &299701734
 GameObject:
   m_ObjectHideFlags: 0
@@ -2106,7 +2082,7 @@ GameObject:
   - component: {fileID: 517610688}
   - component: {fileID: 517610691}
   - component: {fileID: 517610689}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Boundary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2404,7 +2380,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &660021093
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2873,7 +2849,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 994935960}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Boundaries
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3201,7 +3177,6 @@ GameObject:
   - component: {fileID: 1216226274}
   - component: {fileID: 1216226277}
   - component: {fileID: 1216226276}
-  - component: {fileID: 1216226275}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -3224,29 +3199,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 372312378}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
---- !u!136 &1216226275
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1216226273}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &1216226276
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3310,7 +3262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1259866105}
   - component: {fileID: 1259866106}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Boundary (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3493,7 +3445,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1485261847}
   - component: {fileID: 1485261848}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Boundary (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4087,7 +4039,7 @@ GameObject:
   - component: {fileID: 1839156494}
   - component: {fileID: 1839156496}
   - component: {fileID: 1839156495}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Boundary (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
