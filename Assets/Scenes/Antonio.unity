@@ -4441,7 +4441,7 @@ MonoBehaviour:
   gunPoint: {fileID: 372312378}
   maxDistance: 50
   player: {fileID: 296617662}
-  boss: {fileID: 826647710}
+  boss: {fileID: 164608551}
 --- !u!114 &686541026557982786 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 432034375527274337, guid: e612325eae1b85f4aac66c2f5e39a9fb, type: 3}
