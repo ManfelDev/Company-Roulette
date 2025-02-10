@@ -21,7 +21,6 @@ public class Coffe : MonoBehaviour
 
         // Calculate distance between coffee and player's head
         float distance = Vector3.Distance(transform.position, playerHead.position);
-        Debug.Log($"Distance to coffee: {distance:F2}m");
 
         // Check if coffee is close enough to drink
         if (distance < drinkDistance)
