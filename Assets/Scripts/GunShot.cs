@@ -5,8 +5,9 @@ using UnityEngine.Events;
 public class GunShot : MonoBehaviour
 {
     [SerializeField] private bool haveBulletInChamber;
-    [SerializeField] private AudioSource gunshotSound;
-    [SerializeField] private AudioSource noBulletSound;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip gunshotSound;
+    [SerializeField] private AudioClip noBulletSound;
     [SerializeField] private GunMag gunMag;
     [SerializeField] private GameObject bangFlag;
     [SerializeField] private GameObject bulletInsideChamber;
@@ -30,7 +31,7 @@ public class GunShot : MonoBehaviour
     {
         if (haveBulletInChamber)
         {
-            gunshotSound.Play();
+            audioSource.PlayOneShot(gunshotSound);
             haveBulletInChamber = false;
             ActivateBangFlag();
             SendHapticFeedback(1f, 0.05f, 1f);
@@ -38,7 +39,7 @@ public class GunShot : MonoBehaviour
         }
         else
         {
-            noBulletSound.Play();
+            audioSource.PlayOneShot(noBulletSound);
             SendHapticFeedback(0.3f, 0.05f, 0.3f);
             doOnNoBullet.Invoke();
         }
