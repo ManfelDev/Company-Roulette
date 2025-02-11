@@ -346,7 +346,7 @@ Transform:
   m_GameObject: {fileID: 6768037337357786545}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.886, y: -1.0007, z: 0.244}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.008, y: 0.008, z: 0.008}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -587,6 +587,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lights: {fileID: 885980401355116026}
+  gunShot: {fileID: 0}
 --- !u!114 &7094075911063332720
 MonoBehaviour:
   m_ObjectHideFlags: 0

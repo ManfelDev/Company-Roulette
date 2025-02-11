@@ -147,7 +147,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   detectionDistance: 0.05
-  stampPrefab: {fileID: 2138827879503200733, guid: 8024fc3748c8d444483021c09075d951, type: 3}
+  stampMarkPrefab: {fileID: 0}
+  paperModel: {fileID: 0}
 --- !u!1 &3458808549898014975
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,7 +174,7 @@ Transform:
   m_GameObject: {fileID: 3458808549898014975}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.0191, y: 0, z: 0.0193}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -325,7 +326,7 @@ Transform:
   m_GameObject: {fileID: 4975046739753576518}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.9665, y: -1.032, z: 0.49132}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 20, y: 20, z: 10.8316}
   m_ConstrainProportionsScale: 0
   m_Children:
