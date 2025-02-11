@@ -35,7 +35,7 @@ RenderSettings:
   m_DefaultReflectionMode: 0
   m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
-  m_ReflectionIntensity: 1
+  m_ReflectionIntensity: 0
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
   m_UseRadianceAmbientProbe: 0
@@ -1386,6 +1386,7 @@ Transform:
   - {fileID: 1715754284}
   - {fileID: 145521688}
   - {fileID: 2023945040}
+  - {fileID: 1311247597}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &299701736
@@ -1401,13 +1402,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lockPositionToListener: 1
-  width: 8
-  height: 3
-  depth: 5
+  width: 7.7
+  height: 6
+  depth: 9
   leftMaterial: 17
   rightMaterial: 17
   ceilingMaterial: 0
-  floorMaterial: 3
+  floorMaterial: 27
   frontMaterial: 17
   backMaterial: 17
   clutterFactor: 0.5
@@ -2934,6 +2935,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.44025248, y: 0.11292419, z: 0.16463965}
   m_Center: {x: 0.2798743, y: -0.17161646, z: 0.4176813}
+--- !u!1 &1311247596
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1311247597}
+  m_Layer: 0
+  m_Name: Audio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1311247597
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311247596}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 299701735}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1312811488
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4879,10 +4911,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6834293196244177274, guid: e612325eae1b85f4aac66c2f5e39a9fb, type: 3}
-      propertyPath: m_InteractionManager
-      value: 
-      objectReference: {fileID: 1614584957}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

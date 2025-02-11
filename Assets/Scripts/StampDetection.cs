@@ -8,6 +8,7 @@ public class StampDetection : MonoBehaviour
     [SerializeField] private GameObject stampMarkPrefab; // Prefab for the stamp mark
     [SerializeField] private GameObject paperModel; // Paper object to stamp
     [SerializeField] private HandDetection handDetection;
+    [SerializeField] private AudioSource stampSound;
 
     private bool hasStamped = false; // Prevents multiple detections
 
@@ -60,6 +61,7 @@ public class StampDetection : MonoBehaviour
             Debug.LogWarning("Stamp prefab not assigned!");
         }
 
+        stampSound.Play();
         SendHapticFeedback(1f, 0.05f, 1f);
     }
     
