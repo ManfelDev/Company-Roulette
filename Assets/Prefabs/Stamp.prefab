@@ -147,7 +147,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   detectionDistance: 0.05
-  stampPrefab: {fileID: 2138827879503200733, guid: 8024fc3748c8d444483021c09075d951, type: 3}
+  stampMarkPrefab: {fileID: 2138827879503200733, guid: 8024fc3748c8d444483021c09075d951, type: 3}
+  paperModel: {fileID: 0}
+  handDetection: {fileID: 8329595493927361591}
 --- !u!1 &3458808549898014975
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,6 +311,7 @@ GameObject:
   - component: {fileID: 7347098319745722981}
   - component: {fileID: 6097231587838729502}
   - component: {fileID: 5683029803433338307}
+  - component: {fileID: 8329595493927361591}
   m_Layer: 0
   m_Name: Stamp
   m_TagString: Untagged
@@ -408,10 +411,34 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8329595493927361591}
+        m_TargetAssemblyTypeName: HandDetection, Assembly-CSharp
+        m_MethodName: OnSelectEnter
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8329595493927361591}
+        m_TargetAssemblyTypeName: HandDetection, Assembly-CSharp
+        m_MethodName: HandDetectionReset
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_FirstFocusEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -492,3 +519,15 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 1
+--- !u!114 &8329595493927361591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4975046739753576518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83662efe4b5b6124eaeebb337d0cf1ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

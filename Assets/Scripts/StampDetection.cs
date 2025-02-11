@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics.HapticsUtility;
 
 public class StampDetection : MonoBehaviour
 {
@@ -6,7 +7,7 @@ public class StampDetection : MonoBehaviour
     [SerializeField] private float detectionDistance = 0.05f;
     [SerializeField] private GameObject stampMarkPrefab; // Prefab for the stamp mark
     [SerializeField] private GameObject paperModel; // Paper object to stamp
-
+    [SerializeField] private HandDetection handDetection;
 
     private bool hasStamped = false; // Prevents multiple detections
 
@@ -37,7 +38,7 @@ public class StampDetection : MonoBehaviour
 
             // Adjust rotation to match the stamp's orientation
             stampMark.transform.rotation = Quaternion.LookRotation(normal) * Quaternion.Euler(90, 0, 0);
-            
+
             // Match the Y-axis rotation of the stamp
             stampMark.transform.rotation = Quaternion.Euler(stampMark.transform.eulerAngles.x, transform.eulerAngles.y + 180, stampMark.transform.eulerAngles.z);
 
@@ -57,6 +58,20 @@ public class StampDetection : MonoBehaviour
         else
         {
             Debug.LogWarning("Stamp prefab not assigned!");
+        }
+
+        SendHapticFeedback(1f, 0.05f, 1f);
+    }
+    
+    private void SendHapticFeedback(float hapticAmplitude, float hapticDuration, float hapticFrequency)
+    {
+        if (handDetection.IsRightHand())
+        {
+            SendHapticImpulse(hapticAmplitude, hapticDuration, Controller.Right, hapticFrequency);
+        }
+        else if (handDetection.IsLeftHand())
+        {
+            SendHapticImpulse(hapticAmplitude, hapticDuration, Controller.Left, hapticFrequency);
         }
     }
 }
