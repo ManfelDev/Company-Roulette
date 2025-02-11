@@ -9,6 +9,7 @@ public class GunShot : MonoBehaviour
     [SerializeField] private AudioSource noBulletSound;
     [SerializeField] private GunMag gunMag;
     [SerializeField] private GameObject bangFlag;
+    [SerializeField] private GameObject bulletInsideChamber;
 
     [SerializeField] private UnityEvent doOnTriggerPress;
     [SerializeField] private UnityEvent doOnBang;
@@ -69,6 +70,11 @@ public class GunShot : MonoBehaviour
     public void SetHaveBulletInChamber(bool value)
     {
         haveBulletInChamber = value;
+    }
+
+    public void SetBulletInChamberActive(bool value)
+    {
+        bulletInsideChamber.SetActive(value);
     }
 
     public bool HasBulletInChamber()
