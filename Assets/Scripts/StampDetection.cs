@@ -4,7 +4,9 @@ public class StampDetection : MonoBehaviour
 {
     [SerializeField] private LayerMask paperLayer;
     [SerializeField] private float detectionDistance = 0.05f;
-    [SerializeField] private GameObject stampPrefab; // Prefab for the stamp mark
+    [SerializeField] private GameObject stampMarkPrefab; // Prefab for the stamp mark
+    [SerializeField] private GameObject paperModel; // Paper object to stamp
+
 
     private bool hasStamped = false; // Prevents multiple detections
 
@@ -28,10 +30,10 @@ public class StampDetection : MonoBehaviour
 
     void PlaceStampMark(Vector3 position, Vector3 normal)
     {
-        if (stampPrefab != null)
+        if (stampMarkPrefab != null)
         {
             // Instantiate the stamp mark at the hit position
-            GameObject stampMark = Instantiate(stampPrefab, position, Quaternion.identity);
+            GameObject stampMark = Instantiate(stampMarkPrefab, position, Quaternion.identity);
 
             // Adjust rotation to match the stamp's orientation
             stampMark.transform.rotation = Quaternion.LookRotation(normal) * Quaternion.Euler(90, 0, 0);
@@ -41,6 +43,16 @@ public class StampDetection : MonoBehaviour
 
             // Offset slightly to avoid Z-fighting
             stampMark.transform.position += normal * 0.001f;
+
+            // Set the paper as the parent so the stamp moves with it
+            if (paperModel != null)
+            {
+                stampMark.transform.SetParent(paperModel.transform);
+            }
+            else
+            {
+                Debug.LogWarning("Paper object not assigned!");
+            }
         }
         else
         {
