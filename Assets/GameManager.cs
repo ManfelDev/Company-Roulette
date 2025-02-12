@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
 
     [field: Header("Game Over Visuals")]
     [SerializeField] private GameObject gameOverPrompt;
-    [SerializeField] private TextMeshProUGUI youGotThisMoneyText;
+    [SerializeField] private Text youGotThisMoneyText;
 
     [field: Header("Lives Visuals")]
     [SerializeField] private MeshFilter playerLivesRenderer;
@@ -322,6 +322,8 @@ public class GameManager : MonoBehaviour
             playerAlive = false;
 
             //Game over
+            gameOverPrompt.SetActive(true);
+            youGotThisMoneyText.text = $"You got: {currentSalaryRaise}$";
         }
 
         UpdatePlayerLives();
