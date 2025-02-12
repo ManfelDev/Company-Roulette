@@ -4,21 +4,22 @@ using static UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics.HapticsUtility;
 public class Flashlight : MonoBehaviour
 {
     [SerializeField] private GameObject lights;
-    [SerializeField] private GunShot gunShot;
     [SerializeField] private AudioSource flashlightSwitchSound;
 
     private HandDetection handDetection;
+    private GunShot gunShot;
 
     private void Start()
     {
         handDetection = GetComponent<HandDetection>();
+        gunShot = FindAnyObjectByType<GunShot>();
     }
 
     public void TurnOnLights()
     {
         lights.SetActive(true);
         SendHapticFeedback(0.4f, 0.1f, 0.4f);
-
+        
         if (gunShot.HasBulletInChamber())
         {
             gunShot.SetBulletInChamberActive(true);

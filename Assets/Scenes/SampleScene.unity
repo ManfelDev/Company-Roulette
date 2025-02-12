@@ -5131,10 +5131,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Coffe Cup
       objectReference: {fileID: 0}
-    - target: {fileID: 5181873491757610634, guid: 44d709c4c9580b44b84783ae9340ed5f, type: 3}
-      propertyPath: MaxDistance
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 6646324349145908898, guid: 44d709c4c9580b44b84783ae9340ed5f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 20.852

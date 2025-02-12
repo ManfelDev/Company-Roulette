@@ -6,11 +6,17 @@ public class StampDetection : MonoBehaviour
     [SerializeField] private LayerMask paperLayer;
     [SerializeField] private float detectionDistance = 0.05f;
     [SerializeField] private GameObject stampMarkPrefab; // Prefab for the stamp mark
-    [SerializeField] private GameObject paperModel; // Paper object to stamp
     [SerializeField] private HandDetection handDetection;
     [SerializeField] private AudioSource stampSound;
 
-    private bool hasStamped = false; // Prevents multiple detections
+    private GameObject paperModel;
+    private bool hasStamped; // Prevents multiple detections
+
+    private void Start()
+    {
+        paperModel = GameObject.Find("Paper");
+        hasStamped = false;
+    }
 
     void FixedUpdate()
     {
@@ -46,15 +52,7 @@ public class StampDetection : MonoBehaviour
             // Offset slightly to avoid Z-fighting
             stampMark.transform.position += normal * 0.001f;
 
-            // Set the paper as the parent so the stamp moves with it
-            if (paperModel != null)
-            {
-                stampMark.transform.SetParent(paperModel.transform);
-            }
-            else
-            {
-                Debug.LogWarning("Paper object not assigned!");
-            }
+            stampMark.transform.SetParent(paperModel.transform);
         }
         else
         {

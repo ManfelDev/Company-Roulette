@@ -200,21 +200,24 @@ public class GameManager : MonoBehaviour
         pistol.SetActive(false);
 
         bool shootsHimself = UnityEngine.Random.Range(0, 2) == 1 ? true : false;
-        
 
-        if(bossAnimator == null)
+
+        if (bossAnimator == null)
         {
             AnimatorBossShot(shootsHimself);
         }
-
-        if (shootsHimself)
-        {
-            bossAnimator.SetTrigger("ShootSelf");
-        }
         else
         {
-            bossAnimator.SetTrigger("ShootPlayer");
+            if (shootsHimself)
+            {
+                bossAnimator.SetTrigger("ShootSelf");
+            }
+            else
+            {
+                bossAnimator.SetTrigger("ShootPlayer");
+            }
         }
+
 
 
     }
