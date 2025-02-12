@@ -1,6 +1,7 @@
 using UnityEngine;
 using static UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics.HapticsUtility;
 using UnityEngine.Events;
+using Unity.VisualScripting;
 
 public class GunShot : MonoBehaviour
 {
@@ -41,7 +42,11 @@ public class GunShot : MonoBehaviour
         {
             audioSource.PlayOneShot(noBulletSound);
             SendHapticFeedback(0.3f, 0.05f, 0.3f);
-            doOnNoBullet.Invoke();
+            
+            if(!gunMag.XRSocketTagInteractorSocketActive)
+            {
+                doOnNoBullet.Invoke();
+            }
         }
 
         doOnTriggerPress.Invoke();

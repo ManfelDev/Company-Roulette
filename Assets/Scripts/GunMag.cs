@@ -19,6 +19,11 @@ public class GunMag : MonoBehaviour
     private bool canIRemoveMag;
     private bool hasFiredWithCurrentMag;
 
+    public bool XRSocketTagInteractorSocketActive
+    {
+        get { return xRSocketTagInteractor.socketActive; }
+    }
+
     private void Start()
     {
         canIRemoveMag = false;
