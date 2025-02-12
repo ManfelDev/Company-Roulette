@@ -51,6 +51,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private MeshFilter bossLivesRenderer;
     [SerializeField] private Mesh[] numbersMesh;
 
+    [field: Header("Boss Visuals")]
+    [SerializeField] private Animator bossAnimator;
+
+    [SerializeField] private GameObject pistol;
+    private Vector3 pistolSpawnPosition;
+
     private void Awake()
     {
         currentMagazines = new List<GameObject>();
@@ -58,6 +64,8 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        pistolSpawnPosition = pistol.transform.position;
+
         currentRound++;
         StartRound(currentRound);
 
@@ -73,10 +81,13 @@ public class GameManager : MonoBehaviour
 
     public void StartRound(int currentRound)
     {
+        pistol.SetActive(true);
+        pistol.transform.position = pistolSpawnPosition;
         InstantiateMagazines();
         UpdateSalary();
         UpdatePlayerLives();
         UpdateBossLives();
+        ShowBriefcaseQuestion();
 
         playerTurn = true;
     }
@@ -86,10 +97,10 @@ public class GameManager : MonoBehaviour
         currentSalaryRaise *= salaryMultiplier;
 
         string salaryString = currentSalaryRaise.ToString();
-        
+
         while (salaryString.Length < 6)
         {
-                salaryString = "0" + salaryString;
+            salaryString = "0" + salaryString;
         }
 
 
@@ -102,11 +113,11 @@ public class GameManager : MonoBehaviour
         {
             for (int i = 0; i < salaryString.Length; i++)
             {
-                
+
                 int index = (salaryString[i]) - '0';
 
                 salaryIndex[i].mesh = numbersMesh[index];
-                
+
             }
         }
     }
@@ -173,31 +184,126 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void ChangeTurn()
+    public void BossTurn()
     {
-        playerTurn = !playerTurn;
+        playerTurn = false;
+
+        StartCoroutine(StartBossTurn());
+    }
+
+    public IEnumerator StartBossTurn()
+    {
+
+        yield return new WaitForSeconds(1.5f);
+
+        pistol.SetActive(false);
+
+        bool shootsHimself = UnityEngine.Random.Range(0, 2) == 1 ? true : false;
+        
+
+        if(bossAnimator == null)
+        {
+            AnimatorBossShot(shootsHimself);
+        }
+
+        if (shootsHimself)
+        {
+            bossAnimator.SetTrigger("ShootSelf");
+        }
+        else
+        {
+            bossAnimator.SetTrigger("ShootPlayer");
+        }
+
+
+    }
+
+    public void AnimatorBossShot(bool playerShot)
+    {
+        int shotIsReal = UnityEngine.Random.Range(0, 2);
+
+        if (shotIsReal == 1)
+        {
+            if(playerShot)
+            {
+                DamagePlayer(1);
+            }
+            else
+            {
+                DamageBoss(1);
+            }
+        }
+        else
+        {
+            if(playerShot)
+            {
+                briefcaseQuestion.SetActive(true);
+                briefcaseQuestion.GetComponent<BriefcaseQuestion>().UpdateBriefcaseCost(briefcaseCost);
+            }
+            else
+            {
+                StartCoroutine(StartBossTurn());
+            }
+        }
+    }
+
+    public void BriefcaseBought()
+    {
+        briefcaseCost *= briefcaseMultiplier;
     }
 
 
-    public void WhoGotShot()
+    public void WhoGotShot(bool shotIsReal)
     {
         switch (detectAimScript.WhoGotShot())
         {
             case 0:
                 Debug.Log("Shot missed both");
+                if (shotIsReal)
+                {
+                    // player turn over
+                    if (playerAlive && bossAlive)
+                        BossTurn();
+                }
+                else
+                {
+                    // player turn keeps going
+                }
                 break;
             case 1:
                 Debug.Log("Shot hit player");
-                DamagePlayer(1);
+                if (shotIsReal)
+                {
+                    // player turn over
+                    DamagePlayer(1);
+                    if (playerAlive && bossAlive)
+                        BossTurn();
+                }
+                else
+                {
+                    // player turn keeps going
+                }
+
                 break;
             case 2:
                 Debug.Log("Shot hit boss");
-                DamageBoss(1);
+                if (shotIsReal)
+                {
+                    // player turn over
+                    DamageBoss(1);
+                    if (playerAlive && bossAlive)
+                        BossTurn();
+                }
+                else
+                {
+                    // player turn over
+                    if (playerAlive && bossAlive)
+                        BossTurn();
+                }
                 break;
         }
 
-        if (playerAlive && bossAlive)
-            ChangeTurn();
+
     }
 
     public void DamagePlayer(int damage)
