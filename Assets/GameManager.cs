@@ -3,6 +3,8 @@ using UnityEngine.Rendering;
 using System.Collections.Generic;
 using System.Collections;
 using System;
+using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,10 +27,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int bossLives = 3;
     private bool bossAlive = true;
     private bool playerTurn = true;
-    [SerializeField] private int currentSalaryRaise = 1000;
-    public int CurrentSalary {  get { return currentSalaryRaise; } }
+    [SerializeField] private int currentSalaryRaise = 250;
+    public int CurrentSalary { get { return currentSalaryRaise; } }
     [SerializeField] private int salaryMultiplier = 2;
     public int SalaryMultiplier { get { return salaryMultiplier; } }
+    [SerializeField] private MeshFilter[] salaryIndex;
 
     [field: Header("Briefcase Logic")]
     [SerializeField] private GameObject briefcaseQuestion;
@@ -39,10 +42,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int briefcaseCost = 200;
     [SerializeField] private int briefcaseMultiplier = 2;
 
+    [field: Header("Game Over Visuals")]
+    [SerializeField] private GameObject gameOverPrompt;
+    [SerializeField] private TextMeshProUGUI youGotThisMoneyText;
+
     [field: Header("Lives Visuals")]
     [SerializeField] private MeshFilter playerLivesRenderer;
     [SerializeField] private MeshFilter bossLivesRenderer;
-    [SerializeField] private Mesh[] livesMesh;
+    [SerializeField] private Mesh[] numbersMesh;
 
     private void Awake()
     {
@@ -61,17 +68,47 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void StartRound(int currentRound)
     {
         InstantiateMagazines();
-
+        UpdateSalary();
         UpdatePlayerLives();
         UpdateBossLives();
 
         playerTurn = true;
+    }
+
+    private void UpdateSalary()
+    {
+        currentSalaryRaise *= salaryMultiplier;
+
+        string salaryString = currentSalaryRaise.ToString();
+        
+        while (salaryString.Length < 6)
+        {
+                salaryString = "0" + salaryString;
+        }
+
+
+        if (salaryString.Length > 6)
+        {
+            for (int i = 0; i < salaryString.Length; i++)
+                salaryIndex[i].mesh = numbersMesh[(int)salaryString[9]];
+        }
+        else
+        {
+            for (int i = 0; i < salaryString.Length; i++)
+            {
+                
+                int index = (salaryString[i]) - '0';
+
+                salaryIndex[i].mesh = numbersMesh[index];
+                
+            }
+        }
     }
 
     public void InstantiateMagazines()
@@ -83,7 +120,6 @@ public class GameManager : MonoBehaviour
             tempMagazine.transform.position = magazineSpots[i].position;
             currentMagazines.Add(tempMagazine);
         }
-
     }
 
     public void AddMoney(int amount)
@@ -115,7 +151,7 @@ public class GameManager : MonoBehaviour
     {
         float lerpValue = 0f;
 
-        while(lerpValue < 1)
+        while (lerpValue < 1)
         {
             lerpValue += Time.deltaTime / briefcaseTravelDuration;
             briefcase.transform.position = Vector3.Lerp(briefcaseSpawnPosition.position, briefcaseSpotOnTable.position, lerpValue);
@@ -127,7 +163,7 @@ public class GameManager : MonoBehaviour
 
     public void CheckForAliveMagazines()
     {
-        foreach(GameObject magazine in currentMagazines)
+        foreach (GameObject magazine in currentMagazines)
         {
             if (magazine != null)
                 return;
@@ -145,7 +181,7 @@ public class GameManager : MonoBehaviour
 
     public void WhoGotShot()
     {
-        switch(detectAimScript.WhoGotShot())
+        switch (detectAimScript.WhoGotShot())
         {
             case 0:
                 Debug.Log("Shot missed both");
@@ -160,7 +196,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
-        if(playerAlive && bossAlive)
+        if (playerAlive && bossAlive)
             ChangeTurn();
     }
 
@@ -168,7 +204,7 @@ public class GameManager : MonoBehaviour
     {
         playerLives -= damage;
 
-        if(playerLives <= 0)
+        if (playerLives <= 0)
         {
             Debug.Log("Player lost");
             playerAlive = false;
@@ -183,7 +219,7 @@ public class GameManager : MonoBehaviour
     {
         playerLives += amount;
 
-        if(playerLives > maxLives)
+        if (playerLives > maxLives)
         {
             playerLives = maxLives;
         }
@@ -193,7 +229,7 @@ public class GameManager : MonoBehaviour
 
     private void UpdatePlayerLives()
     {
-        playerLivesRenderer.mesh = livesMesh[playerLives];
+        playerLivesRenderer.mesh = numbersMesh[playerLives];
     }
 
     public void DamageBoss(int damage)
@@ -222,7 +258,7 @@ public class GameManager : MonoBehaviour
 
     private void UpdateBossLives()
     {
-        bossLivesRenderer.mesh = livesMesh[bossLives];
+        bossLivesRenderer.mesh = numbersMesh[bossLives];
     }
 
 }
