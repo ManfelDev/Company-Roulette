@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Mesh[] numbersMesh;
 
     [field: Header("Boss Visuals")]
-    [SerializeField] private Animator bossAnimator;
+    [SerializeField] private BossAnimationLogic bossAnimationLogic;
 
     [SerializeField] private GameObject pistol;
     private Vector3 pistolSpawnPosition;
@@ -96,6 +96,7 @@ public class GameManager : MonoBehaviour
         ShowBriefcaseQuestion();
 
         playerTurn = true;
+
     }
 
     private void UpdateSalary()
@@ -201,38 +202,17 @@ public class GameManager : MonoBehaviour
     public IEnumerator StartBossTurn()
     {
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(3f);
 
         pistol.SetActive(false);
 
-        bool shootsHimself = UnityEngine.Random.Range(0, 2) == 1 ? true : false;
-
-
-        if (bossAnimator == null)
-        {
-            AnimatorBossShot(shootsHimself);
-        }
-        else
-        {
-            if (shootsHimself)
-            {
-                bossAnimator.SetTrigger("ShootSelf");
-            }
-            else
-            {
-                bossAnimator.SetTrigger("ShootPlayer");
-            }
-        }
-
-
-
+        bossAnimationLogic.ShootBoss();
     }
 
-    public void AnimatorBossShot(bool playerShot)
+    public void AnimatorBossShot(bool playerShot, bool shotIsReal)
     {
-        int shotIsReal = UnityEngine.Random.Range(0, 2);
 
-        if (shotIsReal == 1)
+        if (shotIsReal)
         {
             if(playerShot)
             {
@@ -330,6 +310,8 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Player lost");
             playerAlive = false;
+
+            //Game over
         }
 
         UpdatePlayerLives();
@@ -362,6 +344,8 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Boss lost");
             bossAlive = false;
+
+            StartRound(currentRound++);
         }
 
         UpdateBossLives();
