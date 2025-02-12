@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
     public void StartRound(int currentRound)
     {
 
-        //InstantiateMagazines();
+        InstantiateMagazines();
         UpdateSalary();
         playerLives = startPlayerLives;
         bossLives = startBossLives;
