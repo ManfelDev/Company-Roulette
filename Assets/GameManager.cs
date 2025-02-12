@@ -23,8 +23,10 @@ public class GameManager : MonoBehaviour
     [field: Header("Game Logic")]
     [SerializeField] private int maxLives = 5;
     [SerializeField] private int playerLives = 3;
+    private int startPlayerLives;
     private bool playerAlive = true;
     [SerializeField] private int bossLives = 3;
+    private int startBossLives;
     private bool bossAlive = true;
     private bool playerTurn = true;
     [SerializeField] private int currentSalaryRaise = 250;
@@ -66,6 +68,9 @@ public class GameManager : MonoBehaviour
     {
         pistolSpawnPosition = pistol.transform.position;
 
+        startPlayerLives = playerLives;
+        startBossLives = bossLives;
+
         currentRound++;
         StartRound(currentRound);
 
@@ -81,10 +86,11 @@ public class GameManager : MonoBehaviour
 
     public void StartRound(int currentRound)
     {
-        pistol.SetActive(true);
-        pistol.transform.position = pistolSpawnPosition;
-        InstantiateMagazines();
+
+        //InstantiateMagazines();
         UpdateSalary();
+        playerLives = startPlayerLives;
+        bossLives = startBossLives;
         UpdatePlayerLives();
         UpdateBossLives();
         ShowBriefcaseQuestion();
@@ -231,18 +237,20 @@ public class GameManager : MonoBehaviour
             if(playerShot)
             {
                 DamagePlayer(1);
+                StartPlayerTurn();
             }
             else
             {
                 DamageBoss(1);
+                StartPlayerTurn();
             }
         }
         else
         {
             if(playerShot)
             {
-                briefcaseQuestion.SetActive(true);
-                briefcaseQuestion.GetComponent<BriefcaseQuestion>().UpdateBriefcaseCost(briefcaseCost);
+                StartPlayerTurn();
+
             }
             else
             {
@@ -251,7 +259,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void StartPlayerTurn()
+    {
+        pistol.SetActive(true);
+        pistol.transform.position = pistolSpawnPosition;
 
+        ShowBriefcaseQuestion();
+
+        playerTurn = true;
+    }
 
     public void WhoGotShot(bool shotIsReal)
     {
