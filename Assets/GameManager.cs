@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int briefcaseCost = 200;
     [SerializeField] private int briefcaseMultiplier = 2;
 
+    private GameObject briefcase;
+
     [field: Header("Game Over Visuals")]
     [SerializeField] private GameObject gameOverPrompt;
     [SerializeField] private TextMeshProUGUI youGotThisMoneyText;
@@ -58,6 +60,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject pistol;
     private Vector3 pistolSpawnPosition;
+
+    
 
     private void Awake()
     {
@@ -81,7 +85,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            //DamageBoss(1);
+        }
     }
 
     public void StartRound(int currentRound)
@@ -161,7 +168,10 @@ public class GameManager : MonoBehaviour
         RemoveMoney(briefcaseCost);
         briefcaseCost *= briefcaseMultiplier;
 
-        GameObject briefcase = Instantiate(briefcasePrefab);
+        if(briefcase != null)
+            Destroy(briefcase);
+
+        briefcase = Instantiate(briefcasePrefab);
 
         StartCoroutine(BriefcaseTravel(briefcase));
     }
