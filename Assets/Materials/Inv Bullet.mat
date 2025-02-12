@@ -127,8 +127,8 @@ Material:
     - _BaseColor: {r: 1, g: 0.85149336, b: 0, a: 1}
     - _Color: {r: 1, g: 0.85149336, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _LightDirection: {r: -0.3638938, g: -0.056977615, b: 0.9296961, a: 0}
-    - _LightPosition: {r: 21.09849, g: -0.9718027, b: 0.059860595, a: 0}
+    - _LightDirection: {r: -0, g: -0, b: 1, a: 0}
+    - _LightPosition: {r: 20.461, g: -1.0007, b: 0.011799991, a: 0}
     - _MyColor: {r: 1, g: 1, b: 1, a: 1}
     - _MyLightDirection: {r: 0, g: 0, b: 1, a: 0}
     - _MyLightPosition: {r: 0, g: 0, b: 0, a: 0}
