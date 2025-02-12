@@ -146,6 +146,7 @@ public class GameManager : MonoBehaviour
     public void ShowBriefcaseQuestion()
     {
         briefcaseQuestion.SetActive(true);
+        briefcaseQuestion.GetComponent<BriefcaseQuestion>().UpdateBriefcaseCost(briefcaseCost);
     }
 
     public void AcceptBriefcase()
@@ -247,10 +248,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void BriefcaseBought()
-    {
-        briefcaseCost *= briefcaseMultiplier;
-    }
 
 
     public void WhoGotShot(bool shotIsReal)
