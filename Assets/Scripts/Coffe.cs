@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class Coffe : MonoBehaviour
 {
+    [SerializeField] private AudioSource drinkSound;
+    
+    private bool hasDrunk = false;
     private Transform playerHead;
     public float drinkDistance = 0.2f;
 
@@ -31,7 +34,10 @@ public class Coffe : MonoBehaviour
 
     private void DrinkCoffee()
     {
+        if (hasDrunk) return; // Prevents multiple drinks
+
         Debug.Log("Coffee consumed!");
-        Destroy(gameObject); // Simulate drinking by removing the cup
+        drinkSound.Play();
+        hasDrunk = true;
     }
 }

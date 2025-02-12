@@ -5,6 +5,7 @@ public class Flashlight : MonoBehaviour
 {
     [SerializeField] private GameObject lights;
     [SerializeField] private GunShot gunShot;
+    [SerializeField] private AudioSource flashlightSwitchSound;
 
     private HandDetection handDetection;
 
@@ -22,6 +23,8 @@ public class Flashlight : MonoBehaviour
         {
             gunShot.SetBulletInChamberActive(true);
         }
+
+        flashlightSwitchSound.Play();
     }
 
     public void TurnOffLights()
@@ -33,6 +36,8 @@ public class Flashlight : MonoBehaviour
         {
             gunShot.SetBulletInChamberActive(false);
         }
+
+        flashlightSwitchSound.Play();
     }
 
     private void SendHapticFeedback(float hapticAmplitude, float hapticDuration, float hapticFrequency)

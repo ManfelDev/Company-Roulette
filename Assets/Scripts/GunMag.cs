@@ -11,6 +11,9 @@ public class GunMag : MonoBehaviour
     [SerializeField] private HandDetection handDetection;
     [SerializeField] private XRSocketTagInteractor xRSocketTagInteractor;
     [SerializeField] private GunShot gunShot;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip reloadSound;
+    [SerializeField] private AudioClip unloadSound;
 
     private Animator animator;
     private bool canIRemoveMag;
@@ -75,6 +78,7 @@ public class GunMag : MonoBehaviour
         gunShot.SetHaveBulletInChamber(false);
         hasFiredWithCurrentMag = false; // Reset for the next magazine
         gunShot.DeactivateBangFlag();
+        audioSource.PlayOneShot(unloadSound);
     }
 
     public void ReloadMag()
@@ -106,6 +110,7 @@ public class GunMag : MonoBehaviour
         canIRemoveMag = true;
         xRSocketTagInteractor.socketActive = false;
         hasFiredWithCurrentMag = false;
+        audioSource.PlayOneShot(reloadSound);
 
         // Reset the GunShot animation when reloading
         gunShot.ResetGunShotAnimation();
