@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 using System.Collections.Generic;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,6 +24,17 @@ public class GameManager : MonoBehaviour
     private bool bossAlive = true;
     private bool playerTurn = true;
     [SerializeField] private int currentSalaryRaise = 1000;
+    public int CurrentSalary {  get { return currentSalaryRaise; } }
+    [SerializeField] private int salaryMultiplier = 2;
+    public int SalaryMultiplier { get { return salaryMultiplier; } }
+
+    [field: Header("Briefcase Logic")]
+    [SerializeField] private GameObject briefcasePrefab;
+    [SerializeField] private Transform briefcaseSpawnPosition;
+    [SerializeField] private Transform briefcaseSpotOnTable;
+    [SerializeField] private float briefcaseTravelDuration = 2f;
+    [SerializeField] private int briefcaseCost = 200;
+    [SerializeField] private int briefcaseMultiplier = 2;
 
     private void Awake()
     {
@@ -33,6 +45,8 @@ public class GameManager : MonoBehaviour
     {
         
         InstantiateMagazines();
+
+        AcceptBriefcase();
     }
 
     // Update is called once per frame
@@ -51,6 +65,40 @@ public class GameManager : MonoBehaviour
             currentMagazines.Add(tempMagazine);
         }
 
+    }
+
+    public void AddMoney(int amount)
+    {
+        currentSalaryRaise += amount;
+    }
+
+    public void RemoveMoney(int amount)
+    {
+        currentSalaryRaise -= amount;
+    }
+
+    public void AcceptBriefcase()
+    {
+        RemoveMoney(briefcaseCost);
+        briefcaseCost *= briefcaseMultiplier;
+
+        GameObject briefcase = Instantiate(briefcasePrefab);
+
+        StartCoroutine(BriefcaseTravel(briefcase));
+    }
+
+    private IEnumerator BriefcaseTravel(GameObject briefcase)
+    {
+        float lerpValue = 0f;
+
+        while(lerpValue < 1)
+        {
+            lerpValue += Time.deltaTime / briefcaseTravelDuration;
+            briefcase.transform.position = Vector3.Lerp(briefcaseSpawnPosition.position, briefcaseSpotOnTable.position, lerpValue);
+            yield return null;
+        }
+
+        briefcase.GetComponent<BriefcaseScript>().SpawnItems();
     }
 
     public void CheckForAliveMagazines()

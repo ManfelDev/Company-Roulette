@@ -2130,6 +2130,13 @@ MonoBehaviour:
   playerLives: 3
   bossLives: 3
   currentSalaryRaise: 1000
+  salaryMultiplier: 2
+  briefcasePrefab: {fileID: 7243415373776716151, guid: 4d2c87a6928c1264ea2b95807e72d21a, type: 3}
+  briefcaseSpawnPosition: {fileID: 1994523927}
+  briefcaseSpotOnTable: {fileID: 1423396572}
+  briefcaseSpeed: 2
+  briefcaseCost: 200
+  briefcaseMultiplier: 2
 --- !u!1 &597693578
 GameObject:
   m_ObjectHideFlags: 0
@@ -2423,8 +2430,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   haveBulletInChamber: 1
+  audioSource: {fileID: 0}
   gunshotSound: {fileID: 686541026557982789}
-  noBulletSound: {fileID: 686541026557982788}
+  noBulletSound: {fileID: 0}
   gunMag: {fileID: 686541026557982786}
   bangFlag: {fileID: 1947101901}
   bulletInsideChamber: {fileID: 0}
@@ -3418,6 +3426,37 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5686134208185362932, guid: d2121c8d819597349ac6f3e6043fa1f3, type: 3}
   m_PrefabInstance: {fileID: 1172905305}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1423396571
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1423396572}
+  m_Layer: 0
+  m_Name: BriefCaseSpot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1423396572
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1423396571}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.020895425, y: -0.15893951, z: -0.0033646394, w: 0.9870615}
+  m_LocalPosition: {x: 21.28, y: -0.974, z: -0.024}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1432644796
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4546,6 +4585,37 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &1994523926
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1994523927}
+  m_Layer: 0
+  m_Name: BriefCaseSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1994523927
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1994523926}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.020895425, y: -0.15893951, z: -0.0033646394, w: 0.9870615}
+  m_LocalPosition: {x: 32.44, y: -0.974, z: -0.024}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2080087325
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4979,11 +5049,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d26d752eede6b5f469716ff2a1ea7c6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!82 &686541026557982788 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 2785997337243212572, guid: e612325eae1b85f4aac66c2f5e39a9fb, type: 3}
-  m_PrefabInstance: {fileID: 686541026557982783}
-  m_PrefabAsset: {fileID: 0}
 --- !u!82 &686541026557982789 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 6543022172593470001, guid: e612325eae1b85f4aac66c2f5e39a9fb, type: 3}
@@ -5808,3 +5873,5 @@ SceneRoots:
   - {fileID: 1531141796}
   - {fileID: 1251558497}
   - {fileID: 2129430596}
+  - {fileID: 1423396572}
+  - {fileID: 1994523927}

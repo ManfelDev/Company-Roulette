@@ -14,7 +14,7 @@ public class BriefcaseScript : MonoBehaviour
     {
         animator = GetComponent<Animator>();
 
-        SpawnItems();
+        //SpawnItems();
     }
 
     // Update is called once per frame
