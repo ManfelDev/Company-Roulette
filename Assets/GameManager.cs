@@ -95,6 +95,7 @@ public class GameManager : MonoBehaviour
     {
 
         InstantiateMagazines();
+        IncreaseSalary();
         UpdateSalary();
         playerLives = startPlayerLives;
         bossLives = startBossLives;
@@ -106,9 +107,15 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void UpdateSalary()
+    private void IncreaseSalary()
     {
         currentSalaryRaise *= salaryMultiplier;
+        UpdateSalary();
+    }
+
+    private void UpdateSalary()
+    {
+        
 
         string salaryString = currentSalaryRaise.ToString();
 
@@ -167,6 +174,8 @@ public class GameManager : MonoBehaviour
     {
         RemoveMoney(briefcaseCost);
         briefcaseCost *= briefcaseMultiplier;
+
+        UpdateSalary();
 
         if(briefcase != null)
             Destroy(briefcase);
