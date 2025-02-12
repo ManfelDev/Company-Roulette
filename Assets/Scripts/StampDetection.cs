@@ -14,7 +14,7 @@ public class StampDetection : MonoBehaviour
 
     private void Start()
     {
-        paperModel = GameObject.Find("Paper");
+        paperModel = GameObject.FindGameObjectWithTag("Paper");
         hasStamped = false;
     }
 
