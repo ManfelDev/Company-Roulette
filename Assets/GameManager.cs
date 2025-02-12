@@ -2,11 +2,12 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using System.Collections.Generic;
 using System.Collections;
+using System;
 
 public class GameManager : MonoBehaviour
 {
 
-    [SerializeField] private int numberOfRounds = 3;
+    private int currentRound = 0;
     [field: Header("Magazines")]
     [SerializeField] private GameObject magazinePrefab;
     [SerializeField, Range(1, 5)] private int numberOfMagazines = 3;
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private DetectAim detectAimScript;
 
     [field: Header("Game Logic")]
+    [SerializeField] private int maxLives = 5;
     [SerializeField] private int playerLives = 3;
     private bool playerAlive = true;
     [SerializeField] private int bossLives = 3;
@@ -29,12 +31,18 @@ public class GameManager : MonoBehaviour
     public int SalaryMultiplier { get { return salaryMultiplier; } }
 
     [field: Header("Briefcase Logic")]
+    [SerializeField] private GameObject briefcaseQuestion;
     [SerializeField] private GameObject briefcasePrefab;
     [SerializeField] private Transform briefcaseSpawnPosition;
     [SerializeField] private Transform briefcaseSpotOnTable;
     [SerializeField] private float briefcaseTravelDuration = 2f;
     [SerializeField] private int briefcaseCost = 200;
     [SerializeField] private int briefcaseMultiplier = 2;
+
+    [field: Header("Lives Visuals")]
+    [SerializeField] private MeshFilter playerLivesRenderer;
+    [SerializeField] private MeshFilter bossLivesRenderer;
+    [SerializeField] private Mesh[] livesMesh;
 
     private void Awake()
     {
@@ -43,16 +51,27 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
-        InstantiateMagazines();
+        currentRound++;
+        StartRound(currentRound);
 
-        AcceptBriefcase();
+
+        //AcceptBriefcase();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void StartRound(int currentRound)
+    {
+        InstantiateMagazines();
+
+        UpdatePlayerLives();
+        UpdateBossLives();
+
+        playerTurn = true;
     }
 
     public void InstantiateMagazines()
@@ -75,6 +94,11 @@ public class GameManager : MonoBehaviour
     public void RemoveMoney(int amount)
     {
         currentSalaryRaise -= amount;
+    }
+
+    public void ShowBriefcaseQuestion()
+    {
+        briefcaseQuestion.SetActive(true);
     }
 
     public void AcceptBriefcase()
@@ -140,7 +164,7 @@ public class GameManager : MonoBehaviour
             ChangeTurn();
     }
 
-    private void DamagePlayer(int damage)
+    public void DamagePlayer(int damage)
     {
         playerLives -= damage;
 
@@ -149,14 +173,30 @@ public class GameManager : MonoBehaviour
             Debug.Log("Player lost");
             playerAlive = false;
         }
+
+        UpdatePlayerLives();
     }
 
-    private void HealPlayer(int amount)
+
+
+    public void HealPlayer(int amount)
     {
         playerLives += amount;
+
+        if(playerLives > maxLives)
+        {
+            playerLives = maxLives;
+        }
+
+        UpdatePlayerLives();
     }
 
-    private void DamageBoss(int damage)
+    private void UpdatePlayerLives()
+    {
+        playerLivesRenderer.mesh = livesMesh[playerLives];
+    }
+
+    public void DamageBoss(int damage)
     {
         bossLives -= damage;
 
@@ -165,10 +205,24 @@ public class GameManager : MonoBehaviour
             Debug.Log("Boss lost");
             bossAlive = false;
         }
+
+        UpdateBossLives();
     }
 
-    private void HealBoss(int amount)
+    public void HealBoss(int amount)
     {
         bossLives += amount;
+
+        if (bossLives > maxLives)
+        {
+            bossLives = maxLives;
+        }
+        UpdateBossLives();
     }
+
+    private void UpdateBossLives()
+    {
+        bossLivesRenderer.mesh = livesMesh[bossLives];
+    }
+
 }
