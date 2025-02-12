@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Hologram
+  m_Name: HologramGreen
   m_Shader: {fileID: -6465566751694194690, guid: 4f7de1080c5c2304fbda64393426beaf, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -77,8 +77,8 @@ Material:
     - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
-    - _Color: {r: 1, g: 0, b: 0, a: 1}
-    - _FresnelColor: {r: 1, g: 0, b: 0.0935936, a: 1}
+    - _Color: {r: 0.10424757, g: 1, b: 0, a: 1}
+    - _FresnelColor: {r: 0, g: 1.4792447, b: 0.06381064, a: 1}
     - _ScanLineSpeed: {r: -1, g: 0, b: 0, a: 0}
     - _TilingScanLine: {r: 1, g: 5, b: 0, a: 0}
   m_BuildTextureStacks: []

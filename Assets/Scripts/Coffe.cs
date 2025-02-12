@@ -8,9 +8,13 @@ public class Coffe : MonoBehaviour
     private Transform playerHead;
     public float drinkDistance = 0.2f;
 
+    private GameManager manager;
+
     private void Start()
     {
         playerHead = Camera.main?.transform;
+
+        manager = FindAnyObjectByType<GameManager>();
 
         if (playerHead == null)
         {
@@ -38,6 +42,7 @@ public class Coffe : MonoBehaviour
 
         Debug.Log("Coffee consumed!");
         drinkSound.Play();
+        manager.HealPlayer(1);
         hasDrunk = true;
     }
 }

@@ -2,11 +2,14 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using System.Collections.Generic;
 using System.Collections;
+using System;
+using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
 
-    [SerializeField] private int numberOfRounds = 3;
+    private int currentRound = 0;
     [field: Header("Magazines")]
     [SerializeField] private GameObject magazinePrefab;
     [SerializeField, Range(1, 5)] private int numberOfMagazines = 3;
@@ -18,23 +21,41 @@ public class GameManager : MonoBehaviour
     [SerializeField] private DetectAim detectAimScript;
 
     [field: Header("Game Logic")]
+    [SerializeField] private int maxLives = 5;
     [SerializeField] private int playerLives = 3;
     private bool playerAlive = true;
     [SerializeField] private int bossLives = 3;
     private bool bossAlive = true;
     private bool playerTurn = true;
-    [SerializeField] private int currentSalaryRaise = 1000;
-    public int CurrentSalary {  get { return currentSalaryRaise; } }
+    [SerializeField] private int currentSalaryRaise = 250;
+    public int CurrentSalary { get { return currentSalaryRaise; } }
     [SerializeField] private int salaryMultiplier = 2;
     public int SalaryMultiplier { get { return salaryMultiplier; } }
+    [SerializeField] private MeshFilter[] salaryIndex;
 
     [field: Header("Briefcase Logic")]
+    [SerializeField] private GameObject briefcaseQuestion;
     [SerializeField] private GameObject briefcasePrefab;
     [SerializeField] private Transform briefcaseSpawnPosition;
     [SerializeField] private Transform briefcaseSpotOnTable;
     [SerializeField] private float briefcaseTravelDuration = 2f;
     [SerializeField] private int briefcaseCost = 200;
     [SerializeField] private int briefcaseMultiplier = 2;
+
+    [field: Header("Game Over Visuals")]
+    [SerializeField] private GameObject gameOverPrompt;
+    [SerializeField] private TextMeshProUGUI youGotThisMoneyText;
+
+    [field: Header("Lives Visuals")]
+    [SerializeField] private MeshFilter playerLivesRenderer;
+    [SerializeField] private MeshFilter bossLivesRenderer;
+    [SerializeField] private Mesh[] numbersMesh;
+
+    [field: Header("Boss Visuals")]
+    [SerializeField] private Animator bossAnimator;
+
+    [SerializeField] private GameObject pistol;
+    private Vector3 pistolSpawnPosition;
 
     private void Awake()
     {
@@ -43,16 +64,62 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
-        InstantiateMagazines();
+        pistolSpawnPosition = pistol.transform.position;
 
-        AcceptBriefcase();
+        currentRound++;
+        StartRound(currentRound);
+
+
+        //AcceptBriefcase();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    public void StartRound(int currentRound)
+    {
+        pistol.SetActive(true);
+        pistol.transform.position = pistolSpawnPosition;
+        InstantiateMagazines();
+        UpdateSalary();
+        UpdatePlayerLives();
+        UpdateBossLives();
+        ShowBriefcaseQuestion();
+
+        playerTurn = true;
+    }
+
+    private void UpdateSalary()
+    {
+        currentSalaryRaise *= salaryMultiplier;
+
+        string salaryString = currentSalaryRaise.ToString();
+
+        while (salaryString.Length < 6)
+        {
+            salaryString = "0" + salaryString;
+        }
+
+
+        if (salaryString.Length > 6)
+        {
+            for (int i = 0; i < salaryString.Length; i++)
+                salaryIndex[i].mesh = numbersMesh[(int)salaryString[9]];
+        }
+        else
+        {
+            for (int i = 0; i < salaryString.Length; i++)
+            {
+
+                int index = (salaryString[i]) - '0';
+
+                salaryIndex[i].mesh = numbersMesh[index];
+
+            }
+        }
     }
 
     public void InstantiateMagazines()
@@ -64,7 +131,6 @@ public class GameManager : MonoBehaviour
             tempMagazine.transform.position = magazineSpots[i].position;
             currentMagazines.Add(tempMagazine);
         }
-
     }
 
     public void AddMoney(int amount)
@@ -75,6 +141,12 @@ public class GameManager : MonoBehaviour
     public void RemoveMoney(int amount)
     {
         currentSalaryRaise -= amount;
+    }
+
+    public void ShowBriefcaseQuestion()
+    {
+        briefcaseQuestion.SetActive(true);
+        briefcaseQuestion.GetComponent<BriefcaseQuestion>().UpdateBriefcaseCost(briefcaseCost);
     }
 
     public void AcceptBriefcase()
@@ -91,7 +163,7 @@ public class GameManager : MonoBehaviour
     {
         float lerpValue = 0f;
 
-        while(lerpValue < 1)
+        while (lerpValue < 1)
         {
             lerpValue += Time.deltaTime / briefcaseTravelDuration;
             briefcase.transform.position = Vector3.Lerp(briefcaseSpawnPosition.position, briefcaseSpotOnTable.position, lerpValue);
@@ -103,7 +175,7 @@ public class GameManager : MonoBehaviour
 
     public void CheckForAliveMagazines()
     {
-        foreach(GameObject magazine in currentMagazines)
+        foreach (GameObject magazine in currentMagazines)
         {
             if (magazine != null)
                 return;
@@ -113,50 +185,160 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void ChangeTurn()
+    public void BossTurn()
     {
-        playerTurn = !playerTurn;
+        playerTurn = false;
+
+        StartCoroutine(StartBossTurn());
+    }
+
+    public IEnumerator StartBossTurn()
+    {
+
+        yield return new WaitForSeconds(1.5f);
+
+        pistol.SetActive(false);
+
+        bool shootsHimself = UnityEngine.Random.Range(0, 2) == 1 ? true : false;
+
+
+        if (bossAnimator == null)
+        {
+            AnimatorBossShot(shootsHimself);
+        }
+        else
+        {
+            if (shootsHimself)
+            {
+                bossAnimator.SetTrigger("ShootSelf");
+            }
+            else
+            {
+                bossAnimator.SetTrigger("ShootPlayer");
+            }
+        }
+
+
+
+    }
+
+    public void AnimatorBossShot(bool playerShot)
+    {
+        int shotIsReal = UnityEngine.Random.Range(0, 2);
+
+        if (shotIsReal == 1)
+        {
+            if(playerShot)
+            {
+                DamagePlayer(1);
+            }
+            else
+            {
+                DamageBoss(1);
+            }
+        }
+        else
+        {
+            if(playerShot)
+            {
+                briefcaseQuestion.SetActive(true);
+                briefcaseQuestion.GetComponent<BriefcaseQuestion>().UpdateBriefcaseCost(briefcaseCost);
+            }
+            else
+            {
+                StartCoroutine(StartBossTurn());
+            }
+        }
     }
 
 
-    public void WhoGotShot()
+
+    public void WhoGotShot(bool shotIsReal)
     {
-        switch(detectAimScript.WhoGotShot())
+        switch (detectAimScript.WhoGotShot())
         {
             case 0:
                 Debug.Log("Shot missed both");
+                if (shotIsReal)
+                {
+                    // player turn over
+                    if (playerAlive && bossAlive)
+                        BossTurn();
+                }
+                else
+                {
+                    // player turn keeps going
+                }
                 break;
             case 1:
                 Debug.Log("Shot hit player");
-                DamagePlayer(1);
+                if (shotIsReal)
+                {
+                    // player turn over
+                    DamagePlayer(1);
+                    if (playerAlive && bossAlive)
+                        BossTurn();
+                }
+                else
+                {
+                    // player turn keeps going
+                }
+
                 break;
             case 2:
                 Debug.Log("Shot hit boss");
-                DamageBoss(1);
+                if (shotIsReal)
+                {
+                    // player turn over
+                    DamageBoss(1);
+                    if (playerAlive && bossAlive)
+                        BossTurn();
+                }
+                else
+                {
+                    // player turn over
+                    if (playerAlive && bossAlive)
+                        BossTurn();
+                }
                 break;
         }
 
-        if(playerAlive && bossAlive)
-            ChangeTurn();
+
     }
 
-    private void DamagePlayer(int damage)
+    public void DamagePlayer(int damage)
     {
         playerLives -= damage;
 
-        if(playerLives <= 0)
+        if (playerLives <= 0)
         {
             Debug.Log("Player lost");
             playerAlive = false;
         }
+
+        UpdatePlayerLives();
     }
 
-    private void HealPlayer(int amount)
+
+
+    public void HealPlayer(int amount)
     {
         playerLives += amount;
+
+        if (playerLives > maxLives)
+        {
+            playerLives = maxLives;
+        }
+
+        UpdatePlayerLives();
     }
 
-    private void DamageBoss(int damage)
+    private void UpdatePlayerLives()
+    {
+        playerLivesRenderer.mesh = numbersMesh[playerLives];
+    }
+
+    public void DamageBoss(int damage)
     {
         bossLives -= damage;
 
@@ -165,10 +347,24 @@ public class GameManager : MonoBehaviour
             Debug.Log("Boss lost");
             bossAlive = false;
         }
+
+        UpdateBossLives();
     }
 
-    private void HealBoss(int amount)
+    public void HealBoss(int amount)
     {
         bossLives += amount;
+
+        if (bossLives > maxLives)
+        {
+            bossLives = maxLives;
+        }
+        UpdateBossLives();
     }
+
+    private void UpdateBossLives()
+    {
+        bossLivesRenderer.mesh = numbersMesh[bossLives];
+    }
+
 }
