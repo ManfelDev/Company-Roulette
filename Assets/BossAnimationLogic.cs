@@ -25,6 +25,9 @@ public class BossAnimationLogic : MonoBehaviour
         shootsHimself = UnityEngine.Random.Range(0, 2) == 1 ? true : false;
         shotIsReal = UnityEngine.Random.Range(0, 2) == 1 ? true : false;
 
+        Debug.Log("shootsHimself: " + shootsHimself);
+        Debug.Log("shotIsReal: " + shotIsReal);
+
         if (shootsHimself && shotIsReal) BossShotBang();
         if (!shootsHimself && shotIsReal) PlayerShotBang();
         if (shootsHimself && !shotIsReal) BossShotNoBang();

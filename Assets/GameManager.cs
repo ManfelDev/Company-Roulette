@@ -96,6 +96,7 @@ public class GameManager : MonoBehaviour
         ShowBriefcaseQuestion();
 
         playerTurn = true;
+
     }
 
     private void UpdateSalary()
@@ -309,6 +310,8 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Player lost");
             playerAlive = false;
+
+            //Game over
         }
 
         UpdatePlayerLives();
@@ -341,6 +344,8 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Boss lost");
             bossAlive = false;
+
+            StartRound(currentRound++);
         }
 
         UpdateBossLives();
