@@ -280,6 +280,8 @@ public class GameManager : MonoBehaviour
                     // player turn over
                     if (playerAlive && bossAlive && !playerCanPlayTwice)
                         BossTurn();
+
+                    if (playerCanPlayTwice) playerCanPlayTwice = false;
                 }
                 else
                 {
@@ -294,6 +296,8 @@ public class GameManager : MonoBehaviour
                     DamagePlayer(1);
                     if (playerAlive && bossAlive && !playerCanPlayTwice)
                         BossTurn();
+
+                    if (playerCanPlayTwice) playerCanPlayTwice = false;
                 }
                 else
                 {
@@ -309,12 +313,16 @@ public class GameManager : MonoBehaviour
                     DamageBoss(1);
                     if (playerAlive && bossAlive && !playerCanPlayTwice)
                         BossTurn();
+
+                    if (playerCanPlayTwice) playerCanPlayTwice = false;
                 }
                 else
                 {
                     // player turn over
                     if (playerAlive && bossAlive)
                         BossTurn();
+
+                    if (playerCanPlayTwice) playerCanPlayTwice = false;
                 }
                 break;
         }
