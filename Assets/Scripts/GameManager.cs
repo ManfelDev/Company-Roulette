@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             //DamageBoss(1);
         }
@@ -135,7 +135,7 @@ public class GameManager : MonoBehaviour
 
     private void UpdateSalary()
     {
-        
+
 
         string salaryString = currentSalaryRaise.ToString();
 
@@ -149,10 +149,10 @@ public class GameManager : MonoBehaviour
         {
             for (int i = 0; i < salaryString.Length; i++)
             {
-                                int index = (salaryString[9]) - '0';
+                int index = (salaryString[9]) - '0';
 
                 salaryIndex[i].mesh = numbersMesh[index];
-               }
+            }
         }
         else
         {
@@ -170,7 +170,7 @@ public class GameManager : MonoBehaviour
     public void InstantiateMagazines()
     {
 
-        foreach(GameObject magazine in currentMagazines)
+        foreach (GameObject magazine in currentMagazines)
         {
             Destroy(magazine);
         }
@@ -210,7 +210,7 @@ public class GameManager : MonoBehaviour
 
         UpdateSalary();
 
-        if(briefcase != null)
+        if (briefcase != null)
             Destroy(briefcase);
 
         briefcase = Instantiate(briefcasePrefab);
@@ -261,7 +261,7 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
 
-gunMag.turn = true;
+        gunMag.turn = true;
 
         pistol.SetActive(false);
 
@@ -273,7 +273,7 @@ gunMag.turn = true;
 
         if (shotIsReal)
         {
-            if(playerShot)
+            if (playerShot)
             {
                 DamagePlayer(1);
                 StartPlayerTurn();
@@ -286,7 +286,7 @@ gunMag.turn = true;
         }
         else
         {
-            if(playerShot)
+            if (playerShot)
             {
                 StartPlayerTurn();
 
@@ -374,36 +374,36 @@ gunMag.turn = true;
         if (flashlightUsed == true)
         {
             flashlightUsed = false;
-            StartCoroutine(ClearFlashlightCR()); 
+            StartCoroutine(ClearFlashlightCR());
         }
-   
+
     }
 
     private IEnumerator ClearFlashlightCR()
     {
         Flashlight flashlight = FindAnyObjectByType<Flashlight>();
 
-        if(flashlight != null)
+        if (flashlight != null)
         {
             Destroy(flashlight.gameObject);
-        }   
+        }
         yield return null;
 
-            flashlight = FindAnyObjectByType<Flashlight>();
+        flashlight = FindAnyObjectByType<Flashlight>();
 
-        if(flashlight != null)
+        if (flashlight != null)
         {
             Destroy(flashlight.gameObject);
-        } 
+        }
 
         yield return null;
-        
-            flashlight = FindAnyObjectByType<Flashlight>();
 
-        if(flashlight != null)
+        flashlight = FindAnyObjectByType<Flashlight>();
+
+        if (flashlight != null)
         {
             Destroy(flashlight.gameObject);
-        } 
+        }
     }
 
     public void DamagePlayer(int damage)
@@ -449,10 +449,10 @@ gunMag.turn = true;
 
     public void DamageBoss(int damage)
     {
-        if(bossHurt.Length > 0)
+        if (bossHurt.Length > 0)
             GlobalAudioSystem.Instance.PlaySound(bossHurt[UnityEngine.Random.Range(0, bossHurt.Length - 1)], gameObject.transform.position);
 
-                if (loseLifeSound.Length > 0)
+        if (loseLifeSound.Length > 0)
             GlobalAudioSystem.Instance.PlaySound(loseLifeSound[UnityEngine.Random.Range(0, loseLifeSound.Length - 1)], gameObject.transform.position);
 
         // play boss hurt sound
