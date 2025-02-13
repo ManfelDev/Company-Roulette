@@ -5,7 +5,7 @@ public class ObjectFallOffTable : MonoBehaviour
 
     [SerializeField] private LayerMask flallOffLayer;
 
-    [SerializeField] private bool destroyOnCollision = false;
+    [SerializeField] public bool destroyOnCollision = false;
 
     private Vector3 intialPosition;
     private void Start()

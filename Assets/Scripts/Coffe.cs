@@ -41,6 +41,7 @@ public class Coffe : MonoBehaviour
         if (hasDrunk) return; // Prevents multiple drinks
 
         Debug.Log("Coffee consumed!");
+        GetComponent<ObjectFallOffTable>().destroyOnCollision = true;
         drinkSound.Play();
         manager.HealPlayer(1);
         hasDrunk = true;

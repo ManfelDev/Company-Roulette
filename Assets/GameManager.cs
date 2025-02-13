@@ -165,6 +165,12 @@ public class GameManager : MonoBehaviour
 
     public void InstantiateMagazines()
     {
+
+        foreach(GameObject magazine in currentMagazines)
+        {
+            Destroy(magazine);
+        }
+
         currentMagazines.Clear();
         for (int i = 0; i < numberOfMagazines; i++)
         {
@@ -360,7 +366,7 @@ public class GameManager : MonoBehaviour
     {
         Flashlight flashlight = FindAnyObjectByType<Flashlight>();
 
-        while(flashlight != null)
+        while(flashlight == null)
         {
             Destroy(flashlight);
             flashlight = FindAnyObjectByType<Flashlight>();

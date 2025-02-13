@@ -35,27 +35,23 @@ public class BossAnimationLogic : MonoBehaviour
     public void PlayerShotBang()
     {
         bossAnimator.SetTrigger("ShootPlayerBang");
-        GlobalAudioSystem.Instance.PlaySound(shootingSound[Random.Range(0, shootingSound.Length - 1)], gameObject.transform.position);
-    }
+           }
 
     public void PlayerShotNoBang()
     {
         bossAnimator.SetTrigger("ShootPlayerNoBang");
-        GlobalAudioSystem.Instance.PlaySound(noBulletShootingSound[Random.Range(0, noBulletShootingSound.Length - 1)], gameObject.transform.position);
-    }
+          }
 
     public void BossShotBang()
     {
         bossAnimator.SetTrigger("ShootBossBang");
-        GlobalAudioSystem.Instance.PlaySound(shootingSound[Random.Range(0, shootingSound.Length - 1)], gameObject.transform.position);
-
+       
     }
 
     public void BossShotNoBang()
     {
         bossAnimator.SetTrigger("ShootBossNoBang");
-        GlobalAudioSystem.Instance.PlaySound(noBulletShootingSound[Random.Range(0, noBulletShootingSound.Length - 1)], gameObject.transform.position);
-
+        
     }
 
     public void PistolBang()
@@ -63,6 +59,8 @@ public class BossAnimationLogic : MonoBehaviour
         pistolAnimator.SetTrigger("ShotBang");
 
         gameManager.AnimatorBossShot(!shootsHimself, shotIsReal);
+        GlobalAudioSystem.Instance.PlaySound(shootingSound[Random.Range(0, shootingSound.Length - 1)], gameObject.transform.position);
+
     }
 
     public void PistolNoBang()
@@ -70,6 +68,8 @@ public class BossAnimationLogic : MonoBehaviour
         pistolAnimator.SetTrigger("ShotNoBang");
 
         gameManager.AnimatorBossShot(!shootsHimself, shotIsReal);
+        GlobalAudioSystem.Instance.PlaySound(noBulletShootingSound[Random.Range(0, noBulletShootingSound.Length - 1)], gameObject.transform.position);
+
     }
 
 
