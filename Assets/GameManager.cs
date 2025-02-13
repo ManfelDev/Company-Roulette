@@ -104,6 +104,8 @@ public class GameManager : MonoBehaviour
         InstantiateMagazines();
         IncreaseSalary();
         UpdateSalary();
+        playerAlive = true;
+        bossAlive = true;
         playerLives = startPlayerLives;
         bossLives = startBossLives;
         UpdatePlayerLives();
