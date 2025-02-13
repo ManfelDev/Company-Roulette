@@ -47,7 +47,6 @@ public class GunShot : MonoBehaviour
             if (!gunMag.IsMagUsed)
             {
                 doOnNoBullet.Invoke();
-                Debug.Log("No bullet in chamber and no mag in gun");
             }
         }
 

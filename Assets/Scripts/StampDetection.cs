@@ -9,6 +9,8 @@ public class StampDetection : MonoBehaviour
     [SerializeField] private HandDetection handDetection;
     [SerializeField] private AudioSource stampSound;
 
+    private ObjectFallOffTable objectFallOffTable;
+
     private GameObject paperModel;
     private bool hasStamped; // Prevents multiple detections
 
@@ -18,7 +20,7 @@ public class StampDetection : MonoBehaviour
     {
         paperModel = GameObject.FindGameObjectWithTag("Paper");
         hasStamped = false;
-
+        objectFallOffTable = GetComponentInParent<ObjectFallOffTable>();
         gameManager = FindAnyObjectByType<GameManager>();
     }
 
@@ -59,6 +61,8 @@ public class StampDetection : MonoBehaviour
             stampMark.transform.SetParent(paperModel.transform);
 
             gameManager.playerCanPlayTwice = true;
+
+            objectFallOffTable.destroyOnCollision = true;
         }
         else
         {

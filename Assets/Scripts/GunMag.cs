@@ -21,6 +21,8 @@ public class GunMag : MonoBehaviour
 
     public bool IsMagUsed;
 
+    public bool turn = true;
+
     private void Start()
     {
         canIRemoveMag = false;
@@ -68,7 +70,7 @@ public class GunMag : MonoBehaviour
     public void UnloadGun()
     {
         // Prevent unloading if the gun has not been fired at least once
-        if (!hasFiredWithCurrentMag)
+        if (!hasFiredWithCurrentMag || !turn)
         {
             Debug.Log("Cannot unload the magazine without firing at least once.");
             return;

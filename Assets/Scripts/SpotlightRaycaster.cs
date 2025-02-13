@@ -63,6 +63,7 @@ public class SpotlightConeCheck : MonoBehaviour
             if (angleToTarget < spotAngle && col.CompareTag("Pistol"))
             {
                 isDetected = true;
+                Debug.Log("Pistol is detected!");
                 break;
             }
         }
@@ -86,18 +87,6 @@ public class SpotlightConeCheck : MonoBehaviour
         if (pistolObject != null)
         {
             skinnedMeshRenderer = pistolObject.GetComponentInChildren<SkinnedMeshRenderer>();
-            if (skinnedMeshRenderer == null)
-            {
-                Debug.LogError("SkinnedMeshRenderer not found in the object tagged 'Pistol'!");
-            }
-            else
-            {
-                Debug.Log("Found SkinnedMeshRenderer in object tagged 'Pistol'.");
-            }
-        }
-        else
-        {
-            Debug.LogError("No object with the tag 'Pistol' was found in the scene!");
         }
     }
 
@@ -161,5 +150,30 @@ public class SpotlightConeCheck : MonoBehaviour
 
             isMaterialTransparent = false;
         }
+    }
+
+    // Draw the cone of the spotlight in the Scene view
+    private void OnDrawGizmos()
+    {
+        if (spotLight == null) return;
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, spotLight.range);
+
+        Vector3 viewAngleA = DirFromAngle(-spotLight.spotAngle * 0.5f, false);
+        Vector3 viewAngleB = DirFromAngle(spotLight.spotAngle * 0.5f, false);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + viewAngleA * spotLight.range);
+        Gizmos.DrawLine(transform.position, transform.position + viewAngleB * spotLight.range);
+    }
+
+    private Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal)
+    {
+        if (!angleIsGlobal)
+        {
+            angleInDegrees += transform.eulerAngles.y;
+        }
+        return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
     }
 }

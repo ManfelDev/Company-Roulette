@@ -6,6 +6,7 @@ public class Flashlight : MonoBehaviour
     [SerializeField] private GameObject lights;
     [SerializeField] private AudioSource flashlightSwitchSound;
 
+    private GameManager gameManager;
     private HandDetection handDetection;
     private GunShot gunShot;
 
@@ -24,6 +25,8 @@ public class Flashlight : MonoBehaviour
         {
             gunShot.SetBulletInChamberActive(true);
         }
+
+        gameManager.flashlightUsed = true;
 
         flashlightSwitchSound.Play();
     }

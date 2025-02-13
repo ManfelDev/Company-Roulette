@@ -74,6 +74,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip[] bossTurnChange;
     [SerializeField] private AudioClip[] moneySound;
 
+    [SerializeField] private AudioClip[] loseLifeSound;
+
+    [SerializeField] private GunMag gunMag;
+    public bool flashlightUsed = false;
     private void Awake()
     {
         currentMagazines = new List<GameObject>();
@@ -253,8 +257,11 @@ public class GameManager : MonoBehaviour
         if (bossTurnChange.Length > 0)
             GlobalAudioSystem.Instance.PlaySound(bossTurnChange[UnityEngine.Random.Range(0, bossTurnChange.Length - 1)], gameObject.transform.position);
 
+        gunMag.turn = false;
 
         yield return new WaitForSeconds(3f);
+
+gunMag.turn = true;
 
         pistol.SetActive(false);
 
@@ -364,20 +371,49 @@ public class GameManager : MonoBehaviour
 
     public void ClearFlashlight()
     {
+        if (flashlightUsed == true)
+        {
+            flashlightUsed = false;
+            StartCoroutine(ClearFlashlightCR()); 
+        }
+   
+    }
+
+    private IEnumerator ClearFlashlightCR()
+    {
         Flashlight flashlight = FindAnyObjectByType<Flashlight>();
 
-        while(flashlight == null)
+        if(flashlight != null)
         {
-            Destroy(flashlight);
+            Destroy(flashlight.gameObject);
+        }   
+        yield return null;
+
             flashlight = FindAnyObjectByType<Flashlight>();
-        }
+
+        if(flashlight != null)
+        {
+            Destroy(flashlight.gameObject);
+        } 
+
+        yield return null;
+        
+            flashlight = FindAnyObjectByType<Flashlight>();
+
+        if(flashlight != null)
+        {
+            Destroy(flashlight.gameObject);
+        } 
     }
 
     public void DamagePlayer(int damage)
     {
-        shakeUIhologram.StartShake(0.75f, 0.03f);
+        shakeUIhologram.StartShake(1.5f, 0.1f);
 
         playerLives -= damage;
+
+        if (loseLifeSound.Length > 0)
+            GlobalAudioSystem.Instance.PlaySound(loseLifeSound[UnityEngine.Random.Range(0, loseLifeSound.Length - 1)], gameObject.transform.position);
 
         if (playerLives <= 0)
         {
@@ -416,10 +452,12 @@ public class GameManager : MonoBehaviour
         if(bossHurt.Length > 0)
             GlobalAudioSystem.Instance.PlaySound(bossHurt[UnityEngine.Random.Range(0, bossHurt.Length - 1)], gameObject.transform.position);
 
+                if (loseLifeSound.Length > 0)
+            GlobalAudioSystem.Instance.PlaySound(loseLifeSound[UnityEngine.Random.Range(0, loseLifeSound.Length - 1)], gameObject.transform.position);
 
         // play boss hurt sound
 
-        shakeUIhologram.StartShake(0.75f, 0.03f);
+        shakeUIhologram.StartShake(1.5f, 0.1f);
 
         bossLives -= damage;
 
