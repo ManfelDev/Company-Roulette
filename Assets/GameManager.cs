@@ -222,6 +222,8 @@ public class GameManager : MonoBehaviour
     public IEnumerator StartBossTurn()
     {
 
+        // play boss sound
+
         yield return new WaitForSeconds(3f);
 
         pistol.SetActive(false);
@@ -368,6 +370,9 @@ public class GameManager : MonoBehaviour
 
     public void DamageBoss(int damage)
     {
+
+        // play boss hurt sound
+
         bossLives -= damage;
 
         if (bossLives <= 0)

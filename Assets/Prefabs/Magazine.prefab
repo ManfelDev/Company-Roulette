@@ -226,6 +226,7 @@ MonoBehaviour:
   flallOffLayer:
     serializedVersion: 2
     m_Bits: 64
+  destroyOnCollision: 0
 --- !u!1 &5584763955786403263
 GameObject:
   m_ObjectHideFlags: 0
