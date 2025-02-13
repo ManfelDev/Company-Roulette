@@ -50,6 +50,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverPrompt;
     [SerializeField] private Text youGotThisMoneyText;
 
+    [field: Header("New Round Visuals")]
+    [SerializeField] private GameObject newRoundPrompt;
+    [SerializeField] private Text youGotThisMoneyTextNewRound;
+
     [field: Header("Lives Visuals")]
     [SerializeField] private MeshFilter playerLivesRenderer;
     [SerializeField] private MeshFilter bossLivesRenderer;
@@ -184,6 +188,9 @@ public class GameManager : MonoBehaviour
 
     public void AcceptBriefcase()
     {
+        if (briefcaseCost < currentSalaryRaise)
+            return;
+
         RemoveMoney(briefcaseCost);
         briefcaseCost *= briefcaseMultiplier;
 
@@ -345,6 +352,17 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void ClearFlashlight()
+    {
+        Flashlight flashlight = FindAnyObjectByType<Flashlight>();
+
+        while(flashlight != null)
+        {
+            Destroy(flashlight);
+            flashlight = FindAnyObjectByType<Flashlight>();
+        }
+    }
+
     public void DamagePlayer(int damage)
     {
         shakeUIhologram.StartShake(0.75f, 0.03f);
@@ -400,7 +418,10 @@ public class GameManager : MonoBehaviour
             Debug.Log("Boss lost");
             bossAlive = false;
 
-            StartRound(currentRound++);
+            newRoundPrompt.SetActive(true);
+            youGotThisMoneyTextNewRound.text = $"You got: {currentSalaryRaise}$";
+
+            //StartRound(currentRound++);
         }
 
         UpdateBossLives();
