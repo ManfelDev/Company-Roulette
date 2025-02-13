@@ -296,6 +296,7 @@ GameObject:
   - component: {fileID: 4247320003663122886}
   - component: {fileID: 5181873491757610634}
   - component: {fileID: 5564875767086075656}
+  - component: {fileID: -5481804923547024496}
   m_Layer: 0
   m_Name: Coffe Cup
   m_TagString: Untagged
@@ -607,3 +608,18 @@ MonoBehaviour:
   gainBoostDb: 0
   enableAcoustics: 1
   reverbSendDb: 0
+--- !u!114 &-5481804923547024496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4597834825096206305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 029b75c603a66ff48bfa07809bd6757a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flallOffLayer:
+    serializedVersion: 2
+    m_Bits: 64

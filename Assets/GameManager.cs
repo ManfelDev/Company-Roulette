@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject pistol;
     private Vector3 pistolSpawnPosition;
 
+    public bool playerCanPlayTwice = false;
     
 
     private void Awake()
@@ -263,7 +264,7 @@ public class GameManager : MonoBehaviour
         pistol.SetActive(true);
         pistol.transform.position = pistolSpawnPosition;
 
-        ShowBriefcaseQuestion();
+        //ShowBriefcaseQuestion();
 
         playerTurn = true;
     }
@@ -277,7 +278,7 @@ public class GameManager : MonoBehaviour
                 if (shotIsReal)
                 {
                     // player turn over
-                    if (playerAlive && bossAlive)
+                    if (playerAlive && bossAlive && !playerCanPlayTwice)
                         BossTurn();
                 }
                 else
@@ -291,7 +292,7 @@ public class GameManager : MonoBehaviour
                 {
                     // player turn over
                     DamagePlayer(1);
-                    if (playerAlive && bossAlive)
+                    if (playerAlive && bossAlive && !playerCanPlayTwice)
                         BossTurn();
                 }
                 else
@@ -306,7 +307,7 @@ public class GameManager : MonoBehaviour
                 {
                     // player turn over
                     DamageBoss(1);
-                    if (playerAlive && bossAlive)
+                    if (playerAlive && bossAlive && !playerCanPlayTwice)
                         BossTurn();
                 }
                 else

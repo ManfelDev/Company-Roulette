@@ -12,10 +12,14 @@ public class StampDetection : MonoBehaviour
     private GameObject paperModel;
     private bool hasStamped; // Prevents multiple detections
 
+    private GameManager gameManager;
+
     private void Start()
     {
         paperModel = GameObject.FindGameObjectWithTag("Paper");
         hasStamped = false;
+
+        gameManager = FindAnyObjectByType<GameManager>();
     }
 
     void FixedUpdate()
@@ -53,6 +57,8 @@ public class StampDetection : MonoBehaviour
             stampMark.transform.position += normal * 0.001f;
 
             stampMark.transform.SetParent(paperModel.transform);
+
+            gameManager.playerCanPlayTwice = true;
         }
         else
         {

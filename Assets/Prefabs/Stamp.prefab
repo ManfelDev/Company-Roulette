@@ -148,7 +148,6 @@ MonoBehaviour:
     m_Bits: 8
   detectionDistance: 0.05
   stampMarkPrefab: {fileID: 2138827879503200733, guid: 8024fc3748c8d444483021c09075d951, type: 3}
-  paperModel: {fileID: 0}
   handDetection: {fileID: 8329595493927361591}
   stampSound: {fileID: 6278798869860146010}
 --- !u!1 &3458808549898014975
@@ -315,6 +314,7 @@ GameObject:
   - component: {fileID: 5683029803433338307}
   - component: {fileID: 8329595493927361591}
   - component: {fileID: 6439528623120283946}
+  - component: {fileID: 1932533776658973311}
   m_Layer: 0
   m_Name: Stamp
   m_TagString: Untagged
@@ -647,3 +647,19 @@ MonoBehaviour:
   gainBoostDb: 10
   enableAcoustics: 1
   reverbSendDb: 0
+--- !u!114 &1932533776658973311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4975046739753576518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 029b75c603a66ff48bfa07809bd6757a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flallOffLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  destroyOnCollision: 0

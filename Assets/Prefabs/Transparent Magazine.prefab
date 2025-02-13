@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8010144339139947583}
   - component: {fileID: 9043751882517165214}
   - component: {fileID: 3366365239711539589}
+  - component: {fileID: 3024757438064410617}
   m_Layer: 0
   m_Name: Transparent Magazine
   m_TagString: Magazine
@@ -211,6 +212,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasBullet: 1
   bulletChance: 0
+--- !u!114 &3024757438064410617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794095669071789232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 029b75c603a66ff48bfa07809bd6757a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flallOffLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  destroyOnCollision: 0
 --- !u!1 &5584763955786403263
 GameObject:
   m_ObjectHideFlags: 0

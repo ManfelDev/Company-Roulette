@@ -332,6 +332,7 @@ GameObject:
   - component: {fileID: 7094075911063332720}
   - component: {fileID: 144505405867691983}
   - component: {fileID: 4967656632359570163}
+  - component: {fileID: 6046891461070671065}
   m_Layer: 0
   m_Name: Flashlight
   m_TagString: Untagged
@@ -752,6 +753,21 @@ MonoBehaviour:
   gainBoostDb: 0
   enableAcoustics: 1
   reverbSendDb: 0
+--- !u!114 &6046891461070671065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6768037337357786545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 029b75c603a66ff48bfa07809bd6757a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flallOffLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &6972407713368890881
 GameObject:
   m_ObjectHideFlags: 0
@@ -798,13 +814,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spotLight: {fileID: 1936985789506650899}
   checkRadius: 2
-  targetRenderer: {fileID: 0}
-  opaqueMaterial: {fileID: 2100000, guid: f21ef164add8f6d4da2fecb966d4448e, type: 2}
+  skinnedMeshRenderer: {fileID: 0}
   transparentMaterial: {fileID: 2100000, guid: 73d0369405e6a104198717dd0d6b84b2, type: 2}
-  minAlpha: 0.5
-  maxAlpha: 1
-  alphaDecreaseSpeed: 1
-  alphaIncreaseSpeed: 1
 --- !u!1 &8833995729902547604
 GameObject:
   m_ObjectHideFlags: 0

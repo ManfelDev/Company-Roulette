@@ -147,6 +147,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 645350667806398413}
+  - component: {fileID: -1945579235996067017}
   m_Layer: 3
   m_Name: Paper
   m_TagString: Untagged
@@ -170,3 +171,19 @@ Transform:
   - {fileID: 8425445931820684288}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -77.91, z: 0}
+--- !u!114 &-1945579235996067017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6558314258765754298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 029b75c603a66ff48bfa07809bd6757a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flallOffLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  destroyOnCollision: 0
