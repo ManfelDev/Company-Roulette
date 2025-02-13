@@ -4,13 +4,13 @@ using System.Collections;
 public class SpotlightConeCheck : MonoBehaviour
 {
     [Header("Spotlight Settings")]
-    public Light spotLight; // Assign your Spotlight in Inspector
-    public float checkRadius = 5f; // Defines the max detection range
+    [SerializeField] private Light spotLight; // Assign your Spotlight in Inspector
+    [SerializeField] private float checkRadius = 5f; // Defines the max detection range
 
     [Header("Material Settings")]
-    public SkinnedMeshRenderer skinnedMeshRenderer; // Assign the Skinned Mesh Renderer
-    public Material transparentMaterial; // Transparent version of the material
+    [SerializeField] private Material transparentMaterial; // Transparent version of the material
 
+    private SkinnedMeshRenderer skinnedMeshRenderer;
     private Material originalMaterial3; // Store the original Material 3
     private Material originalMaterial4; // Store the original Material 4
 
@@ -20,15 +20,17 @@ public class SpotlightConeCheck : MonoBehaviour
 
     private void Start()
     {
+        FindSkinnedMeshRenderer(); // Find the "Pistol" object dynamically
+
         if (skinnedMeshRenderer == null)
         {
-            Debug.LogError("SkinnedMeshRenderer is not assigned in the Inspector!");
+            Debug.LogError("SkinnedMeshRenderer could not be found in any object tagged as 'Pistol'!");
             return;
         }
 
         if (skinnedMeshRenderer.materials.Length < 5)
         {
-            Debug.LogError("SkinnedMeshRenderer does not have at least 5 materials at runtime! It has " + skinnedMeshRenderer.materials.Length);
+            Debug.LogError("SkinnedMeshRenderer does not have at least 5 materials! It has " + skinnedMeshRenderer.materials.Length);
             return;
         }
 
@@ -76,6 +78,27 @@ public class SpotlightConeCheck : MonoBehaviour
         }
 
         AdjustAlpha();
+    }
+
+    private void FindSkinnedMeshRenderer()
+    {
+        GameObject pistolObject = GameObject.FindGameObjectWithTag("Pistol");
+        if (pistolObject != null)
+        {
+            skinnedMeshRenderer = pistolObject.GetComponentInChildren<SkinnedMeshRenderer>();
+            if (skinnedMeshRenderer == null)
+            {
+                Debug.LogError("SkinnedMeshRenderer not found in the object tagged 'Pistol'!");
+            }
+            else
+            {
+                Debug.Log("Found SkinnedMeshRenderer in object tagged 'Pistol'.");
+            }
+        }
+        else
+        {
+            Debug.LogError("No object with the tag 'Pistol' was found in the scene!");
+        }
     }
 
     private void AdjustAlpha()
