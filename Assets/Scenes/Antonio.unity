@@ -3272,7 +3272,7 @@ SpriteRenderer:
   m_Size: {x: 6.39, y: 3.43}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &409140192
@@ -5012,8 +5012,12 @@ MonoBehaviour:
   pistol: {fileID: 686541026557982784}
   playerCanPlayTwice: 0
   shakeUIhologram: {fileID: 453543376}
-  bossHurt: []
-  bossTurnChange: []
+  bossHurt:
+  - {fileID: 8300000, guid: f4cecc38e30fd0247988f9f4f395c597, type: 3}
+  - {fileID: 8300000, guid: c6fe82207cbc1ff4aa112068ed881f30, type: 3}
+  bossTurnChange:
+  - {fileID: 8300000, guid: 977ead416aec8da4090780af13396bdd, type: 3}
+  - {fileID: 8300000, guid: 8a19f896d1522ba438a5ec9472b74d15, type: 3}
   moneySound:
   - {fileID: 8300000, guid: 3f6f90560490f754a88c667c6f89ea76, type: 3}
   loseLifeSound:
