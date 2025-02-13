@@ -27,7 +27,7 @@ public class GunMag : MonoBehaviour
     {
         canIRemoveMag = false;
         xRSocketTagInteractor.socketActive = true;
-        IsMagUsed = false;
+        IsMagUsed = true;
         gunShot.SetHaveBulletInChamber(false);
         hasFiredWithCurrentMag = true;
         animator = GetComponent<Animator>();

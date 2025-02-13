@@ -14,6 +14,8 @@ public class Flashlight : MonoBehaviour
     {
         handDetection = GetComponent<HandDetection>();
         gunShot = FindAnyObjectByType<GunShot>();
+
+        gameManager = FindAnyObjectByType<GameManager>();
     }
 
     public void TurnOnLights()

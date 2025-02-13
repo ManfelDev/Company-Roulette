@@ -254,12 +254,12 @@ public class GameManager : MonoBehaviour
     public IEnumerator StartBossTurn()
     {
 
-        if (bossTurnChange.Length > 0)
-            GlobalAudioSystem.Instance.PlaySound(bossTurnChange[UnityEngine.Random.Range(0, bossTurnChange.Length - 1)], gameObject.transform.position);
 
         gunMag.turn = false;
 
         yield return new WaitForSeconds(3f);
+        if (bossTurnChange.Length > 0)
+            GlobalAudioSystem.Instance.PlaySound(bossTurnChange[UnityEngine.Random.Range(0, bossTurnChange.Length - 1)], gameObject.transform.position);
 
         gunMag.turn = true;
 
