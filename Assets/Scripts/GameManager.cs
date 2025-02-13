@@ -78,6 +78,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GunMag gunMag;
     public bool flashlightUsed = false;
+
+    [SerializeField] private GameObject uiMoney;
     private void Awake()
     {
         currentMagazines = new List<GameObject>();
@@ -116,6 +118,11 @@ public class GameManager : MonoBehaviour
         bossAlive = true;
         playerLives = startPlayerLives;
         bossLives = startBossLives;
+        int randomAmountOfLives = UnityEngine.Random.Range(1, 6);
+        startPlayerLives = randomAmountOfLives;
+        startBossLives = randomAmountOfLives;
+        uiMoney.SetActive(false);
+        uiMoney.SetActive(true);
         UpdatePlayerLives();
         UpdateBossLives();
         ShowBriefcaseQuestion();

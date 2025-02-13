@@ -5071,7 +5071,7 @@ MonoBehaviour:
   maxLives: 5
   playerLives: 2
   bossLives: 2
-  currentSalaryRaise: 425
+  currentSalaryRaise: 300
   salaryMultiplier: 2
   salaryIndex:
   - {fileID: 163726244}
@@ -5102,8 +5102,8 @@ MonoBehaviour:
   - {fileID: 4882115322962003972, guid: 0bc9f85eed23d8e46b1f146c10ee1bd6, type: 3}
   - {fileID: -5082522871635176651, guid: 0bc9f85eed23d8e46b1f146c10ee1bd6, type: 3}
   - {fileID: -8413837161920484157, guid: 0bc9f85eed23d8e46b1f146c10ee1bd6, type: 3}
-  - {fileID: -1661537731292281231, guid: 0bc9f85eed23d8e46b1f146c10ee1bd6, type: 3}
   - {fileID: 6011780423487754084, guid: 0bc9f85eed23d8e46b1f146c10ee1bd6, type: 3}
+  - {fileID: -1661537731292281231, guid: 0bc9f85eed23d8e46b1f146c10ee1bd6, type: 3}
   bossAnimationLogic: {fileID: 1745631763}
   pistol: {fileID: 686541026557982784}
   playerCanPlayTwice: 0
@@ -5121,6 +5121,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 86a2541d02ce2784eb9d2078ea7c8a1b, type: 3}
   gunMag: {fileID: 686541026557982786}
   flashlightUsed: 0
+  uiMoney: {fileID: 2129430593}
 --- !u!114 &565550192
 MonoBehaviour:
   m_ObjectHideFlags: 0
