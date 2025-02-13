@@ -5014,7 +5014,11 @@ MonoBehaviour:
   shakeUIhologram: {fileID: 453543376}
   bossHurt: []
   bossTurnChange: []
-  moneySound: []
+  moneySound:
+  - {fileID: 8300000, guid: 3f6f90560490f754a88c667c6f89ea76, type: 3}
+  loseLifeSound:
+  - {fileID: 8300000, guid: ca9ce22043c4b7e45b7f3c942e68ca55, type: 3}
+  - {fileID: 8300000, guid: 86a2541d02ce2784eb9d2078ea7c8a1b, type: 3}
   gunMag: {fileID: 686541026557982786}
   flashlightUsed: 0
 --- !u!114 &565550192
