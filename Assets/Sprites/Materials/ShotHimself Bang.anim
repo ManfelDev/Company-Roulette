@@ -19472,7 +19472,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 9.05
-    functionName: PistolNoBang
+    functionName: PistolBang
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

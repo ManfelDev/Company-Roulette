@@ -17,12 +17,13 @@ public class ObjectFallOffTable : MonoBehaviour
     {
         int x = 1 << other.gameObject.layer;
 
-
+        Debug.Log("Collision");
 
         // Trigger Clown Falling
         if (x == flallOffLayer.value)
         {
-            if(destroyOnCollision)
+            Debug.Log("Collision with fall");
+            if (destroyOnCollision)
                 Destroy(gameObject);
             else
                 transform.position = intialPosition;
