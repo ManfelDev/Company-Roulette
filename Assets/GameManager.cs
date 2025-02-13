@@ -144,7 +144,11 @@ public class GameManager : MonoBehaviour
         if (salaryString.Length > 6)
         {
             for (int i = 0; i < salaryString.Length; i++)
-                salaryIndex[i].mesh = numbersMesh[(int)salaryString[9]];
+            {
+                                int index = (salaryString[9]) - '0';
+
+                salaryIndex[i].mesh = numbersMesh[index];
+               }
         }
         else
         {
@@ -188,7 +192,7 @@ public class GameManager : MonoBehaviour
 
     public void AcceptBriefcase()
     {
-        if (briefcaseCost < currentSalaryRaise)
+        if (briefcaseCost > currentSalaryRaise)
             return;
 
         RemoveMoney(briefcaseCost);

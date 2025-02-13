@@ -19,15 +19,13 @@ public class GunMag : MonoBehaviour
     private bool canIRemoveMag;
     private bool hasFiredWithCurrentMag;
 
-    public bool XRSocketTagInteractorSocketActive
-    {
-        get { return xRSocketTagInteractor.socketActive; }
-    }
+    public bool IsMagUsed;
 
     private void Start()
     {
         canIRemoveMag = false;
         xRSocketTagInteractor.socketActive = true;
+        IsMagUsed = false;
         gunShot.SetHaveBulletInChamber(false);
         hasFiredWithCurrentMag = true;
         animator = GetComponent<Animator>();
@@ -116,7 +114,8 @@ public class GunMag : MonoBehaviour
         xRSocketTagInteractor.socketActive = false;
         hasFiredWithCurrentMag = false;
         audioSource.PlayOneShot(reloadSound);
-
+        
+        IsMagUsed = false;
         // Reset the GunShot animation when reloading
         gunShot.ResetGunShotAnimation();
     }

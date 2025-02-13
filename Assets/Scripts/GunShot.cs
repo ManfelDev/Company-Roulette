@@ -43,10 +43,11 @@ public class GunShot : MonoBehaviour
         {
             audioSource.PlayOneShot(noBulletSound);
             SendHapticFeedback(0.3f, 0.05f, 0.3f);
-            
-            if(!gunMag.XRSocketTagInteractorSocketActive)
+
+            if (!gunMag.IsMagUsed)
             {
                 doOnNoBullet.Invoke();
+                Debug.Log("No bullet in chamber and no mag in gun");
             }
         }
 
@@ -59,6 +60,7 @@ public class GunShot : MonoBehaviour
             hasPlayedGunShotAnimation = true; // Mark that the animation has been played
         }
 
+        gunMag.IsMagUsed = true;
         gunMag.MarkGunAsFired();
     }
 

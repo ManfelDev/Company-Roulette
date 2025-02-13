@@ -13,11 +13,6 @@ public class BossAnimationLogic : MonoBehaviour
     [SerializeField] private AudioClip[] shootingSound;
     [SerializeField] private AudioClip[] noBulletShootingSound;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
 
 
 
@@ -52,18 +47,22 @@ public class BossAnimationLogic : MonoBehaviour
     public void BossShotBang()
     {
         bossAnimator.SetTrigger("ShootBossBang");
+        GlobalAudioSystem.Instance.PlaySound(shootingSound[Random.Range(0, shootingSound.Length - 1)], gameObject.transform.position);
+
     }
 
     public void BossShotNoBang()
     {
         bossAnimator.SetTrigger("ShootBossNoBang");
+        GlobalAudioSystem.Instance.PlaySound(noBulletShootingSound[Random.Range(0, noBulletShootingSound.Length - 1)], gameObject.transform.position);
+
     }
 
     public void PistolBang()
     {
         pistolAnimator.SetTrigger("ShotBang");
 
-        gameManager.AnimatorBossShot(shootsHimself, shotIsReal);
+        gameManager.AnimatorBossShot(!shootsHimself, shotIsReal);
     }
 
     public void PistolNoBang()
@@ -72,4 +71,6 @@ public class BossAnimationLogic : MonoBehaviour
 
         gameManager.AnimatorBossShot(!shootsHimself, shotIsReal);
     }
+
+
 }
