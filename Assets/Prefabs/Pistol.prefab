@@ -977,12 +977,12 @@ GameObject:
   m_Component:
   - component: {fileID: 5418769343157211221}
   m_Layer: 2
-  m_Name: Bang Flag
+  m_Name: Bang! (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5418769343157211221
 Transform:
   m_ObjectHideFlags: 0
