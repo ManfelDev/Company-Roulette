@@ -8376,11 +8376,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1899198180}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!137 &1913832531 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 7297058341117061200, guid: e612325eae1b85f4aac66c2f5e39a9fb, type: 3}
-  m_PrefabInstance: {fileID: 686541026557982783}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1970050678 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 109434732395451517, guid: 7811abe38615a86438f679bcf79f5b92, type: 3}
@@ -11047,14 +11042,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4742433110716392484, guid: 7dbf3b6c8cb05b14c88fe809fa80d44b, type: 3}
-      propertyPath: targetRenderer
-      value: 
-      objectReference: {fileID: 1913832531}
-    - target: {fileID: 4742433110716392484, guid: 7dbf3b6c8cb05b14c88fe809fa80d44b, type: 3}
-      propertyPath: skinnedMeshRenderer
-      value: 
-      objectReference: {fileID: 1913832531}
     - target: {fileID: 4820979461828507548, guid: 7dbf3b6c8cb05b14c88fe809fa80d44b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 20.461
