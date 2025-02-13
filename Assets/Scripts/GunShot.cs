@@ -36,6 +36,7 @@ public class GunShot : MonoBehaviour
             haveBulletInChamber = false;
             ActivateBangFlag();
             SendHapticFeedback(1f, 0.05f, 1f);
+            bulletInsideChamber.SetActive(false);
             doOnBang.Invoke();
         }
         else

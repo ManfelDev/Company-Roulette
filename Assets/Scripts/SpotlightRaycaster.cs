@@ -8,22 +8,43 @@ public class SpotlightConeCheck : MonoBehaviour
     public float checkRadius = 5f; // Defines the max detection range
 
     [Header("Material Settings")]
-    public Renderer targetRenderer; // The Renderer of the object
-    public Material opaqueMaterial; // The opaque material
-    public Material transparentMaterial; // The transparent material
-    public float minAlpha = 0.5f; // Minimum alpha when detected
-    public float maxAlpha = 1.0f; // Maximum alpha when not detected
-    public float alphaDecreaseSpeed = 0.5f; // Speed of alpha decrease
-    public float alphaIncreaseSpeed = 0.5f; // Speed of alpha increase
+    public SkinnedMeshRenderer skinnedMeshRenderer; // Assign the Skinned Mesh Renderer
+    public Material transparentMaterial; // Transparent version of the material
+
+    private Material originalMaterial3; // Store the original Material 3
+    private Material originalMaterial4; // Store the original Material 4
 
     private bool isDetected = false;
     private bool isDetectionActive = false;
-    private bool isUsingTransparentMaterial = false;
-    private Coroutine alphaCoroutine;
+    private bool isMaterialTransparent = false; // Track if Materials 3 & 4 are transparent
+
+    private void Start()
+    {
+        if (skinnedMeshRenderer == null)
+        {
+            Debug.LogError("SkinnedMeshRenderer is not assigned in the Inspector!");
+            return;
+        }
+
+        if (skinnedMeshRenderer.materials.Length < 5)
+        {
+            Debug.LogError("SkinnedMeshRenderer does not have at least 5 materials at runtime! It has " + skinnedMeshRenderer.materials.Length);
+            return;
+        }
+
+        // Save the original Material 3 & 4
+        originalMaterial3 = skinnedMeshRenderer.materials[3];
+        originalMaterial4 = skinnedMeshRenderer.materials[4];
+
+        if (originalMaterial3 == null || originalMaterial4 == null)
+        {
+            Debug.LogError("Original Materials (Element 3 or 4) are null! Check the SkinnedMeshRenderer material list.");
+        }
+    }
 
     private void FixedUpdate()
     {
-        if (!isDetectionActive || spotLight == null || targetRenderer == null) return;
+        if (!isDetectionActive || spotLight == null || skinnedMeshRenderer == null || originalMaterial3 == null || originalMaterial4 == null) return;
 
         float spotAngle = spotLight.spotAngle * 0.5f; // Convert full angle to half for calculations
         float spotRange = spotLight.range;
@@ -36,7 +57,7 @@ public class SpotlightConeCheck : MonoBehaviour
             Vector3 directionToTarget = (col.transform.position - transform.position).normalized;
             float angleToTarget = Vector3.Angle(transform.forward, directionToTarget);
 
-            // Check if within the cone angle and range
+            // Check if within the cone angle and in range
             if (angleToTarget < spotAngle && col.CompareTag("Pistol"))
             {
                 isDetected = true;
@@ -44,68 +65,78 @@ public class SpotlightConeCheck : MonoBehaviour
             }
         }
 
-        HandleMaterialSwitch();
-        AdjustAlpha();
-    }
+        // Change Material 3 & 4 only when necessary
+        if (isDetected && !isMaterialTransparent)
+        {
+            SetMaterialsTransparent();
+        }
+        else if (!isDetected && isMaterialTransparent)
+        {
+            SetMaterialsOpaque();
+        }
 
-    private void HandleMaterialSwitch()
-    {
-        if (isDetected && !isUsingTransparentMaterial)
-        {
-            targetRenderer.material = transparentMaterial;
-            isUsingTransparentMaterial = true;
-        }
-        else if (!isDetected && isUsingTransparentMaterial)
-        {
-            targetRenderer.material = opaqueMaterial;
-            isUsingTransparentMaterial = false;
-        }
+        AdjustAlpha();
     }
 
     private void AdjustAlpha()
     {
-        if (targetRenderer != null)
+        if (skinnedMeshRenderer != null && skinnedMeshRenderer.materials.Length >= 5)
         {
-            float targetAlpha = isDetected ? minAlpha : maxAlpha;
-            float speed = isDetected ? alphaDecreaseSpeed : alphaIncreaseSpeed;
+            Material thirdMaterial = skinnedMeshRenderer.materials[3];
+            Material fourthMaterial = skinnedMeshRenderer.materials[4];
 
-            // Stop any ongoing alpha transition before starting a new one
-            if (alphaCoroutine != null)
+            if (thirdMaterial != null && fourthMaterial != null)
             {
-                StopCoroutine(alphaCoroutine);
+                float targetAlpha = isDetected ? 0.5f : 1.0f;
+                Color color3 = thirdMaterial.color;
+                Color color4 = fourthMaterial.color;
+                color3.a = targetAlpha;
+                color4.a = targetAlpha;
+                thirdMaterial.color = color3;
+                fourthMaterial.color = color4;
             }
-
-            alphaCoroutine = StartCoroutine(LerpAlpha(targetAlpha, speed));
         }
     }
 
-    private IEnumerator LerpAlpha(float targetAlpha, float speed)
-    {
-        Material currentMaterial = targetRenderer.material;
-        Color color = currentMaterial.color;
-
-        while (!Mathf.Approximately(color.a, targetAlpha))
-        {
-            color.a = Mathf.MoveTowards(color.a, targetAlpha, speed * Time.deltaTime);
-            currentMaterial.color = color;
-            yield return null; // Wait for the next frame
-        }
-    }
-
-    // Method to enable detection
+    // Enable detection and allow material swap
     public void EnableDetection()
     {
         isDetectionActive = true;
         Debug.Log("Spotlight Detection ENABLED");
     }
 
-    // Method to disable detection
+    // Disable detection and reset materials
     public void DisableDetection()
     {
         isDetectionActive = false;
         isDetected = false;
-        HandleMaterialSwitch();
-        AdjustAlpha();
+        SetMaterialsOpaque(); // Reset materials when detection is disabled
         Debug.Log("Spotlight Detection DISABLED");
+    }
+
+    private void SetMaterialsTransparent()
+    {
+        if (skinnedMeshRenderer != null && skinnedMeshRenderer.materials.Length >= 5 && transparentMaterial != null)
+        {
+            Material[] materials = skinnedMeshRenderer.materials;
+            materials[3] = transparentMaterial; // Replace Material 3
+            materials[4] = transparentMaterial; // Replace Material 4
+            skinnedMeshRenderer.materials = materials;
+
+            isMaterialTransparent = true;
+        }
+    }
+
+    private void SetMaterialsOpaque()
+    {
+        if (skinnedMeshRenderer != null && skinnedMeshRenderer.materials.Length >= 5 && originalMaterial3 != null && originalMaterial4 != null)
+        {
+            Material[] materials = skinnedMeshRenderer.materials;
+            materials[3] = originalMaterial3; // Restore Material 3
+            materials[4] = originalMaterial4; // Restore Material 4
+            skinnedMeshRenderer.materials = materials;
+
+            isMaterialTransparent = false;
+        }
     }
 }
