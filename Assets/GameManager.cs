@@ -62,7 +62,13 @@ public class GameManager : MonoBehaviour
     private Vector3 pistolSpawnPosition;
 
     public bool playerCanPlayTwice = false;
-    
+
+    [SerializeField] private ObjectShaker shakeUIhologram;
+
+    [field: Header("Sound")]
+    [SerializeField] private AudioClip[] bossHurt;
+    [SerializeField] private AudioClip[] bossTurnChange;
+    [SerializeField] private AudioClip[] moneySound;
 
     private void Awake()
     {
@@ -110,6 +116,9 @@ public class GameManager : MonoBehaviour
 
     private void IncreaseSalary()
     {
+        if (moneySound.Length > 0)
+            GlobalAudioSystem.Instance.PlaySound(moneySound[UnityEngine.Random.Range(0, moneySound.Length - 1)], gameObject.transform.position);
+
         currentSalaryRaise *= salaryMultiplier;
         UpdateSalary();
     }
@@ -222,7 +231,9 @@ public class GameManager : MonoBehaviour
     public IEnumerator StartBossTurn()
     {
 
-        // play boss sound
+        if (bossTurnChange.Length > 0)
+            GlobalAudioSystem.Instance.PlaySound(bossTurnChange[UnityEngine.Random.Range(0, bossTurnChange.Length - 1)], gameObject.transform.position);
+
 
         yield return new WaitForSeconds(3f);
 
@@ -334,6 +345,8 @@ public class GameManager : MonoBehaviour
 
     public void DamagePlayer(int damage)
     {
+        shakeUIhologram.StartShake(0.75f, 0.03f);
+
         playerLives -= damage;
 
         if (playerLives <= 0)
@@ -370,8 +383,13 @@ public class GameManager : MonoBehaviour
 
     public void DamageBoss(int damage)
     {
+        if(bossHurt.Length > 0)
+            GlobalAudioSystem.Instance.PlaySound(bossHurt[UnityEngine.Random.Range(0, bossHurt.Length - 1)], gameObject.transform.position);
+
 
         // play boss hurt sound
+
+        shakeUIhologram.StartShake(0.75f, 0.03f);
 
         bossLives -= damage;
 

@@ -10,6 +10,9 @@ public class BossAnimationLogic : MonoBehaviour
     private bool shootsHimself = false;
     private bool shotIsReal = false;
 
+    [SerializeField] private AudioClip[] shootingSound;
+    [SerializeField] private AudioClip[] noBulletShootingSound;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -37,11 +40,13 @@ public class BossAnimationLogic : MonoBehaviour
     public void PlayerShotBang()
     {
         bossAnimator.SetTrigger("ShootPlayerBang");
+        GlobalAudioSystem.Instance.PlaySound(shootingSound[Random.Range(0, shootingSound.Length - 1)], gameObject.transform.position);
     }
 
     public void PlayerShotNoBang()
     {
         bossAnimator.SetTrigger("ShootPlayerNoBang");
+        GlobalAudioSystem.Instance.PlaySound(noBulletShootingSound[Random.Range(0, noBulletShootingSound.Length - 1)], gameObject.transform.position);
     }
 
     public void BossShotBang()
